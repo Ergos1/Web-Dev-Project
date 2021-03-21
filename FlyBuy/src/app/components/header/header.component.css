@@ -1,0 +1,9 @@
+header{
+    background-color: gray;
+}
+ul{
+    display: flex;
+    
+
+    list-style: none;
+}
