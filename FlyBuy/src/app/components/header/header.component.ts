@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbConfig, NgbAlertConfig} from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { MenuItem } from 'src/interfaces/menu-item';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +8,21 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  activeId!:number;
+  menuItems!:MenuItem[];
+  isCollapsed:boolean = false;
 
-  constructor(ngbConfig: NgbConfig, ngbAlertConfig: NgbAlertConfig, private router: Router) {
-    ngbConfig.animation = false;
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.activeId = 1;
+    this.menuItems = [
+      {name:"Home", link:""},
+      {name:"Products", link:""},
+      {name:"Login", link:""},
+      {name:"Registration", link:""},
+      {name:"Cart", link:""}
+    ];
   }
 
-  
 
 }
