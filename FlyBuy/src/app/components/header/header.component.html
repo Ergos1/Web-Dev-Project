@@ -1,17 +1,15 @@
 <div class = "bg-yellow">
-  <button type="button" class="btn btn-outline-dark" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+  <button type="button" class="btn" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
     aria-controls="collapseExample">
     <span class="material-icons">table_rows</span>
   </button>
 </div>
 <nav #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class = "navbar-light">
-  <div class="card bg-light">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav ml-4">
       <li *ngFor = "let item of menuItems" class = "nav-item">
         <a class="nav-link" aria-current="page" [href]="item.link">{{item.name}}</a>
       </li>
     </ul>
-  </div>
 </nav>
 
 <!--
