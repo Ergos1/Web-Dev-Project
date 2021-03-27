@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    margin-left: 345px;
+}
+.sidebar--close{
+    margin-left: 80px;
 }
 .full{
     flex-grow: 1;

@@ -1,30 +1,16 @@
-<div class = "bg-yellow">
-  <button type="button" class="btn" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
-    aria-controls="collapseExample">
-    <span class="material-icons">table_rows</span>
-  </button>
-</div>
-<nav #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class = "navbar-light">
-    <ul class="navbar-nav ml-4">
-      <li *ngFor = "let item of menuItems" class = "nav-item">
-        <a class="nav-link" aria-current="page" [href]="item.link">{{item.name}}</a>
-      </li>
-    </ul>
-</nav>
+<header>
+  <div class = "menu-wrapper">
+    <button (click)="onChange()"><i class = "material-icons md-36">list</i></button>
+    <h3>Dashboard</h3>
+  </div>
+  <div class="search-wrapper">
+    <input type="search">
+  </div>
 
-<!--
-  Header:(Like navigation)
-  1. Home
-  2. Products( MENU(не обяз) ) 
-  3. Login/ Sign in
-  4. Registration/ Sign up
-  5. Search-bar
-  6. Cart 
--->
-<!--
-  <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-        <li *ngFor = "let item of menuItems" class = "nav-item">
-          <a class="nav-link" aria-current="page" [href]="item.link">{{item.name}}</a>
-        </li>
-      </ul>
--->
+  <div class="user-wrapper">
+    <img src="" alt="avatar">
+    <div class="user">
+      <!--Name-->
+    </div>
+  </div>
+</header>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'src/interfaces/menu-item';
+import { SidebarService } from "../../services/sidebar.service";
 
 @Component({
   selector: 'app-header',
@@ -8,21 +8,23 @@ import { MenuItem } from 'src/interfaces/menu-item';
 })
 export class HeaderComponent implements OnInit {
 
-  menuItems!:MenuItem[];
-  isCollapsed:boolean = false;
+  isOpen!:boolean;
 
-  constructor() {
+  constructor(private sidebarService:SidebarService) {
   }
 
   ngOnInit(): void {
-    this.menuItems = [
-      {name:"Home", link:""},
-      {name:"Products", link:""},
-      {name:"Login", link:""},
-      {name:"Registration", link:""},
-      {name:"Cart", link:""}
-    ];
+    this.isOpen = this.sidebarService.getIsOpen();
   }
+
+  onChange():void{
+    this.isOpen = !this.isOpen;
+    this.sidebarService.setIsOpen(this.isOpen);
+  }
+
+
+  
+
 
 
 }

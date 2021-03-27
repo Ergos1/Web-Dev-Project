@@ -1,4 +1,5 @@
-<div class="main">  
+<app-sidebar></app-sidebar>
+<div class = "main" [ngClass] = "isOpen ? '' : 'sidebar--close' ">
   <app-header></app-header>
   <router-outlet></router-outlet>
   <div class = "full"></div><!--Для заполнения пустого пространство между header и footer. Таким образом, footer будет всегда стоять снизу-->

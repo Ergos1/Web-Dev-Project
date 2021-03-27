@@ -1,6 +1,18 @@
-.bg-yellow{
-    background-color: rgb(239, 241, 104);
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px;
+
+    background-color: #fff;
 }
-.btn:focus{
-    box-shadow: none;
+
+.menu-wrapper{
+    display: flex;
+    align-items: center;
+}
+.menu-wrapper button{
+    border:none;
+    background-color: inherit;
 }
