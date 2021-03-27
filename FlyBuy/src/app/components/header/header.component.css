@@ -16,3 +16,25 @@ header{
     border:none;
     background-color: inherit;
 }
+
+.toSearch {
+    display: inline-block;
+    background-color: #000000;
+    -ms-transform: translateY(-30%);
+    transform: translateY(-13%);
+    margin-left: 5px;
+}
+.search {
+height: 30px;
+}
+
+input {
+display: black;
+width: 40%;
+padding: 0.3rem;
+margin-top: 3px;
+font-size: 1.2rem;
+border: 1px solid #ccc;
+outline: none;
+margin-bottom: .5rem;
+}
