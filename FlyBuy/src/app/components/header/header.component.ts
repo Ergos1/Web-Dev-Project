@@ -7,6 +7,7 @@ import { SidebarService } from "../../services/sidebar.service";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  isOpen!:boolean;
 
   isOpen!:boolean;
 
@@ -20,6 +21,9 @@ export class HeaderComponent implements OnInit {
   onChange():void{
     this.isOpen = !this.isOpen;
     this.sidebarService.setIsOpen(this.isOpen);
+  }
+  logout():void{
+    this.logIn = !this.logIn;
   }
 
 
