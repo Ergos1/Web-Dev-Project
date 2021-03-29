@@ -8,9 +8,7 @@ import { SidebarService } from "../../services/sidebar.service";
 })
 export class HeaderComponent implements OnInit {
   isOpen!:boolean;
-
-  isOpen!:boolean;
-
+  logIn!:boolean;
   constructor(private sidebarService:SidebarService) {
   }
 
