@@ -1,66 +1,48 @@
 footer{
-  color:#cccccc;
-  background-color: black;
+  padding: 2% 2% 2% 2%;
+  display: flex;
+  justify-content: space-between;
+  background-color:rgb(17, 17, 17);
   font-size: 12px;
   line-height: 2;
   font-family: 'Helvetica';
-  padding-bottom: 12rem;
-  height: 100%;
 }
-
 .social-links {
-  margin-top: 1rem;
-  display: inline-block;
-  float: right;
-  margin-left: -2px;
-  margin-right: 1.5%;
+  display: flex;
+  justify-content: space-between;
 }
-
-.social-links a {
-  margin-right: 10px;
-  cursor: pointer;
+.rightSide{
+  width: 10%;
 }
-
 .twit{
   background-color: white;
   border-radius: 50%;
   width: 25px;
   height: 25px;
-  margin-left: -2.3px;
-  margin-top: -2.3px;
 }
-
 .face {
   width: 27px;
   height: 27px;
   border: 1px solid white;
   border-radius: 3px;
 }
-
 .insta {
   width: 25px;
   height: 25px;
 }
-
 .names {
-  float: left;
+  color: rgb(100, 100, 100);
 }
 
 .names p {
-  padding-top: 1rem;
-  margin-left: 1%;
   font-size: 14px;
+  color: aliceblue;
 }
 
 .list {
-  list-style: none;
-  margin-top: -1rem;
-  margin-left: 1rem;
   font-size: 14px;
+  margin-left: 6%;
 }
-
-.right {
-  float: left;
-  margin-top: 150px;
-  margin-left: -9rem;
+.secure{
+  color: aliceblue;
 }
