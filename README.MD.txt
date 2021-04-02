@@ -1,1 +1,2 @@
-Hello teams!
+Our project: FlyBuy
+Category: Online store
