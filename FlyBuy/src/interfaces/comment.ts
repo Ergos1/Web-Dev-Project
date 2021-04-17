@@ -1,7 +1,7 @@
 import {User} from "../interfaces/user";
 export interface Comment {
-    from:User,
+    username:User,
     text:string,
-    data:string,
+    date:string,
     likes:number
 }
