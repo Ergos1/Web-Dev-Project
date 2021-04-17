@@ -12,6 +12,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ProductComponent,
     ProductListComponent,
     ProductDetailComponent,
-    SidebarComponent
+    SidebarComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

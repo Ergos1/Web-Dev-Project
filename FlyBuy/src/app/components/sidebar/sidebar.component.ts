@@ -18,9 +18,9 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = [
-      {name:"Home", link:"",active:true,icon:"home"},
-      {name:"Products", link:"",active:false,icon:"store"},
-      {name:"Cart", link:"",active:false,icon:"shopping_cart"}
+      {name:"Home", link:"home",active:true,icon:"home"},
+      {name:"Products", link:"product",active:false,icon:"store"},
+      {name:"Cart", link:"cart",active:false,icon:"shopping_cart"}
     ];
     this.getIsOpen();
   }

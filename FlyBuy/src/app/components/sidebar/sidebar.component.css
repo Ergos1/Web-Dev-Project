@@ -11,11 +11,14 @@
 
 .sidebar--open{
     width: 345px;
+    transition: 1s;
 }
 
 .sidebar--close{
     width: 80px;
+    transition: 1s;
 }
+
 
 .sidebar-brand{
     color:#fff;
