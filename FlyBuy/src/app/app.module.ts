@@ -7,12 +7,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { ProductComponent } from './components/product/product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CartComponent } from './components/cart/cart.component';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +20,11 @@ import { CartComponent } from './components/cart/cart.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    ProductComponent,
     ProductListComponent,
     ProductDetailComponent,
     SidebarComponent,
-    CartComponent
+    CartComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,
