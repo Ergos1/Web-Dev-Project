@@ -1,2 +1,5 @@
-<p>product-list works!</p>
-x
+<ul>
+    <li *ngFor = "let product of products">
+        <a routerLink = '/categories/{{getCategoryId()}}/products/{{product.id}}'>{{product.name}}</a>
+    </li>
+</ul>

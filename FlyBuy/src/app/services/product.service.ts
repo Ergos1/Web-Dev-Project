@@ -7,7 +7,7 @@ import { Product } from 'src/interfaces/product';
 })
 export class ProductService {
 
-  readonly url:string = "";//backend url
+  readonly url:string = "http://127.0.0.1:8000/api/products/";//backend url
 
   constructor(private http: HttpClient) { }
 
@@ -16,7 +16,7 @@ export class ProductService {
   }
 
   getProduct(id: number):Observable<Product>{//READ
-    return this.http.get<Product>(this.url + "/" + id);
+    return this.http.get<Product>(this.url + id + '/');
   }
 
   updateProduct(Product:Product):Observable<Product>{//UPDATE

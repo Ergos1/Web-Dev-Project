@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from "../../services/sidebar.service";
-
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,7 +9,10 @@ import { SidebarService } from "../../services/sidebar.service";
 export class HeaderComponent implements OnInit {
   isOpen!:boolean;
   logIn!:boolean;
-  constructor(private sidebarService:SidebarService) {
+  constructor(private sidebarService:SidebarService, config: NgbModalConfig, private modalService: NgbModal) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+    config.animation = true;
   }
 
   ngOnInit(): void {
@@ -20,7 +23,11 @@ export class HeaderComponent implements OnInit {
     this.isOpen = !this.isOpen;
     this.sidebarService.setIsOpen(this.isOpen);
   }
-  logout():void{
+  login(content:any):void{
+    this.modalService.open(content);
+    this.logIn = !this.logIn;
+  }
+  logout(content:any):void{
     this.logIn = !this.logIn;
   }
 
