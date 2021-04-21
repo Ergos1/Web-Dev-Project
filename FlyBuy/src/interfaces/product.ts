@@ -1,13 +1,15 @@
 import { Comment } from "../interfaces/comment";
 import { Image } from "../interfaces/image";
+import { Category } from "./category";
 export interface Product {
     id:number,
     name:string,
     price:number,
-    images:Image[],
+    image_urls:Image[],
     description:string,
     rating:number,
     likes:number,
     coments:Comment[],
-    views:number
+    views:number,
+    category_id:number,
 }

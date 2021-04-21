@@ -1,4 +1,5 @@
 export interface User {
     id:number,//unique
-    login:string,
+    username:string,
+    is_staff:boolean
 }

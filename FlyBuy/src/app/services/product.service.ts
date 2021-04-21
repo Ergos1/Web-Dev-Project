@@ -15,6 +15,10 @@ export class ProductService {
     return this.http.get<Product[]>(this.url);
   }
 
+  getProductsByCategoryId(categoryId:number):Observable<Product[]>{
+    return this.http.get<Product[]>(`http://127.0.0.1:8000/api/categories/${categoryId}/products/`)
+  }
+
   getProduct(id: number):Observable<Product>{//READ
     return this.http.get<Product>(this.url + id + '/');
   }

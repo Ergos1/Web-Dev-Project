@@ -1,0 +1,44 @@
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+    margin: 50px;
+
+}
+.card-title{
+    text-transform: capitalize;
+    color:black;
+    
+    font-weight: 600;
+    font-size: large;
+}
+.card-title:hover{
+    cursor: pointer;
+}
+
+.card{
+    margin-bottom: 3%;
+    padding: 2%;
+}
+.card-img-top{
+    height:75%;
+}
+.card-body{
+    padding: 0;
+    padding-bottom: 50px;
+}
+
+
+.btn{
+    width:100%;
+}
+
+
+.category-name{
+    color:rgb(117,117,117);
+}
+.price{
+    font-weight: 400;
+    font-size: medium;
+}

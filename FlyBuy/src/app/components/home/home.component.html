@@ -1,4 +1,4 @@
-<ngb-carousel *ngIf="images" class = "main">
+<ngb-carousel *ngIf="true" class = "main">
   <ng-template *ngFor = "let news_ of news" ngbSlide>
     <div class="picsum-img-wrapper">
       <img [src]="news_.image_url">
@@ -6,7 +6,7 @@
     <div class="carousel-caption">
       <h3>{{news_.title}}</h3>
       <p>{{news_.description}}
-        <button *ngIf = 'news_.link' (click) = "goToPage(news_.link)">Go to</button>
+        <button class = 'btn' *ngIf = 'news_.link' (click) = "goToPage(news_.link)">Go to</button>
       </p>
     </div>
   </ng-template>

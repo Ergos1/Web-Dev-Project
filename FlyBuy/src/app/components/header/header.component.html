@@ -20,14 +20,14 @@
   <div class="UserSets">
     <div class="UserLogined" *ngIf="logIn">
       <a>UserName</a>
-      <button (click)="logout(content)">
+      <button class = "btn-sign" (click)="logout()">
         <span class="material-icons">
           logout
         </span>
       </button>
     </div>
     <div class="UserLogOuted" *ngIf="!logIn">
-      <button (click)="login(content)">
+      <button class = "btn-sign" (click)="openSignIn(content)">
         <span class="material-icons">
           login
         </span>
@@ -43,10 +43,23 @@
       </button>
     </div>
     <div class="modal-body">
-      <p>Hello, World!</p>
+      <form>
+        <div class = "form-group">
+          <label>Username</label>
+          <div class = "input-group">
+            <input type="text" [(ngModel)] = "username" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Password</label>
+          <div class = "input-group">
+            <input type="password" [(ngModel)] = "password" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+      </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+      <button type="button" class="btn btn-primary" (click)="login()">Login</button>
     </div>
   </ng-template>
 

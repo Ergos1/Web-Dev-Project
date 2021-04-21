@@ -40,6 +40,7 @@ export class SidebarComponent implements OnInit {
         }
       }
     }
+    if(nameItem.trim() == '') nameItem = 'home';
     for(let i = 0; i < menuItems.length; i++){
       if(menuItems[i]['name'].toLowerCase() == nameItem.toLowerCase()){
         menuItems[i]['active'] = true;

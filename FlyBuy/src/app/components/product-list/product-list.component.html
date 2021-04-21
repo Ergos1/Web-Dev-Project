@@ -1,5 +1,11 @@
-<ul>
-    <li *ngFor = "let product of products">
-        <a routerLink = '/categories/{{getCategoryId()}}/products/{{product.id}}'>{{product.name}}</a>
-    </li>
-</ul>
+<div class = "main">
+    <div *ngFor = "let product of products" class="card" style="width: 18rem;">
+        <img class="card-img-top" [src]="product.image_urls[0].url" alt="Card image cap">
+        <hr>
+        <a routerLink = "/categories/{{product.category_id}}/products/{{product.id}}" class="card-title">{{product.name}}</a>
+        <div class="card-body">
+            <p class = "category-name">{{category_name}}</p>
+            <p class = "price">{{product.price}}$<p>
+        </div>
+    </div>
+</div>

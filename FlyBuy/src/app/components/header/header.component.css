@@ -79,7 +79,8 @@ header{
     display: flex;
     justify-content: center;
 }
-button{
+.btn-sign{
     background-color: white;
     border: none;
 }
+
