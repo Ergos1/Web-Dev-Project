@@ -4,8 +4,21 @@ from rest_framework.request import Request
 
 from django.shortcuts import Http404
 
-from api.models import News, Image
-from api.serializers import NewsSerializer, ImageSerializer
+from api.models import News, Image, Category
+from api.serializers import NewsSerializer, ImageSerializer, CategorySerializer
+
+
+class CategoryDetail(APIView):
+    def get_object(self, category_id):
+        try:
+            return Category.objects.get(id=category_id)
+        except Category.DoesNotExist as e:
+            return Response({'Message': str(e)})
+
+    def get(self, request, category_id=None):
+        category = self.get_object(category_id)
+        serializer = CategorySerializer(category)
+        return Response(serializer.data)
 
 
 class NewsList(APIView):

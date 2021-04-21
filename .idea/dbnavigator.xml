@@ -26,13 +26,13 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="c0bf3835-a584-472f-813f-247875a37545">
-        <schema name="main" object-types="column, constraint, dataset trigger, view, index, table" />
+        <schema name="main" object-types="view, column, index, table, dataset trigger, constraint" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="c0bf3835-a584-472f-813f-247875a37545">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT * FROM api_image]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='api_category';]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -43,6 +43,7 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.api_product" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.api_news" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.api_comment" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.api_category" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.api_image" active-filter-id="EMPTY_FILTER" />

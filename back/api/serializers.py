@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from api.models import Category, Product, News, Image
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 
 
 class CategorySerializer(serializers.Serializer):  # 1/2 with serializer.Serializer
@@ -27,14 +27,13 @@ class ImageSerializerForProduct(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
-    category_id = serializers.IntegerField(write_only=True)
+    category_id = serializers.IntegerField()
     image_urls = ImageSerializerForProduct(read_only=True, many=True, source='image_set')
 
     class Meta:
         model = Product
         fields = ('id', 'name', 'price', 'description', 'rating', 'likes',
-                  'views', 'category', 'category_id', 'image_urls')
+                  'views', 'category_id', 'image_urls')
 
 
 class NewsSerializer(serializers.Serializer):
@@ -61,9 +60,13 @@ class NewsSerializer(serializers.Serializer):
 
 
 class ImageSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
-    product_id = serializers.IntegerField(write_only=True)
+    product_id = serializers.IntegerField()
 
     class Meta:
         model = Image
-        fields = ('id', 'url', 'product_id', 'product')
+        fields = ('id', 'url', 'product_id')
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'is_staff')

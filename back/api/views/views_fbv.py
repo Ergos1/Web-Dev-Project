@@ -1,13 +1,14 @@
 import json
 
 from django.http.response import JsonResponse
+from django.contrib.auth.models import User
 
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
 
 from api.models import Category, Product
-from api.serializers import CategorySerializer, ProductSerializer, NewsSerializer
+from api.serializers import CategorySerializer, ProductSerializer, NewsSerializer, ImageSerializer, UserSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -29,8 +30,8 @@ def category_list(request):
 @api_view(['GET', 'POST'])
 def product_list(request):
     if request.method == 'GET':
-        categories = Product.objects.all()
-        serializer = ProductSerializer(categories, many=True)
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         data = json.loads(request.body)
@@ -40,6 +41,19 @@ def product_list(request):
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
+
+
+@api_view(['GET'])
+def product_list_by_category_id(request, category_id):
+    try:
+        category = Category.objects.get(id=category_id)
+    except Exception as e:
+        return Response({'Message': str(e)})
+
+    if request.method == 'GET':
+        products = category.product_set
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -64,6 +78,23 @@ def product_detail(request, product_id):
         product.delete()
         return Response({'Message': 'Deleted'})
 
+@api_view(['POST'])
+def user_by_username(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data['username']
+        user = User.objects.get(username=username)
+        serializer = UserSerializer(user)
+        print(serializer.data)
+        return Response(serializer.data)
+
+
+def delete_all_categories(request):
+    categories = Category.objects.all()
+    for category in categories:
+        category.delete()
+    return JsonResponse({'Message': 'Deleted'})
+
 
 import pandas as pd
 
@@ -82,15 +113,14 @@ def set_categories(request):
             print('Good')
         else:
             print('Bad' + str(di))
-    return Response({'Message': 'All good'})
+    return JsonResponse({'Message': 'All good'})
 
 
 def delete_categories(request):
-    # 12
-    for i in range(1, 13):
-        category = Category.objects.get(id=i)
+    categories = Category.objects.all()
+    for category in categories:
         category.delete()
-    return JsonResponse({'Message': "all good"})
+    return JsonResponse({'Message': 'Deleted'})
 
 
 def set_products(request):
@@ -137,4 +167,31 @@ def set_news(request):
         else:
             print('Bad')
             return JsonResponse(serializer.errors)
+    return JsonResponse({'Message': 'All good'})
+
+
+def set_images(request):
+    dates = pd.read_csv('D:\Programming\PpP\web\cat.csv')
+
+    first = dates['first']
+    second = dates['second']
+    third = dates['third']
+
+    urls = [first, second, third]
+
+    id = 1
+
+    for i in range(len(first)):
+        id += 1
+        for j in range(3):
+            if type(urls[j][i]) != type(''): continue
+            di = {'url': urls[j][i], 'product_id': id}
+            serializer = ImageSerializer(data=di)
+            if serializer.is_valid():
+                serializer.save()
+                print('Good')
+            else:
+                print('Bad')
+                return JsonResponse(serializer.errors)
+
     return JsonResponse({'Message': 'All good'})

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import AbstractUser
 
 
 class Category(models.Model):
@@ -20,9 +21,11 @@ class Product(models.Model):
     views = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)
 
+
 class Image(models.Model):
     url = models.TextField(default='');
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
 
 class Comment(models.Model):
     username = models.CharField(max_length=300)
@@ -31,9 +34,12 @@ class Comment(models.Model):
     likes = models.IntegerField(default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
+
 class News(models.Model):
     title = models.CharField(max_length=300)
     description = models.TextField(default='')
     image_url = models.TextField(default='')
     link = models.CharField(max_length=300, blank=True)
+
+
 
