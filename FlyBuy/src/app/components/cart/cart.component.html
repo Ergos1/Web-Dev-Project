@@ -1,6 +1,25 @@
-<ul>
-    <li *ngFor = "let product of cart.products">
-        {{product.name}}
-        <button (click)="showId(product)">Id</button>
-    </li>
-</ul>
+
+<div class="main">
+    <div class="subFor" *ngFor = "let product of cart.products">
+        <div class="product-box">
+            <div class="left-side">
+                <img class="image" [src]="product.image_urls[0].url" alt="">
+            </div>
+            <div class="right-side">
+                <p class="name">{{product.name}}</p>
+                <p class="description">{{product.description}}</p>
+                <p class="price">Price: {{product.price}}$</p>
+                <p class="rating">Rating: {{product.rating}}</p>
+                <p class="likes">Likes: <span>{{product.likes}}</span></p>
+                <div>
+                    <button>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button>
+        Borrow
+    </button>
+</div>

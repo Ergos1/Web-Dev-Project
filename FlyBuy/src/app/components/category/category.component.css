@@ -1,24 +1,26 @@
+
 .main{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 50px;
 }
 
 .card-title{
-    text-transform: capitalize;
-    text-align: center;
+  text-transform: capitalize;
+  text-align: center;
 }
 
 .card{
-    margin-bottom: 3%;
-    padding: 2%;
+  margin-bottom: 3%;
+  padding: 2%;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
 .card-img-top{
-    height:75%;
+  height:75%;
 }
 
 .btn{
-    width:100%;
+  width:100%;
 }

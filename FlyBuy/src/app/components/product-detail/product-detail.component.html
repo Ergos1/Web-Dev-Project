@@ -1,11 +1,9 @@
 <div class = "main" *ngIf = "product">
   <div class = "head">
-    <div class = "image">
+    <div class = "left-side">
       <img [src]="product.image_urls[0].url" alt="">
     </div>
-
     <div class = "indetail">
-
       <div class = "name">
         <p id = "product_name">{{product.name}}</p>
       </div>
@@ -25,8 +23,13 @@
         <div class = "price">
           <p>Price: {{product.price}}$</p>
         </div>
+        <div class="like">
+          <button (click)="likeIt()">
+            like
+          </button>
+        </div>
         <div class = "rating">
-          <p> Rating: {{product.rating}} </p>
+          <p> Likes: {{product.likes}} </p>
         </div>
         <ngb-rating [rate]="product.rating"></ngb-rating>
       </div>
@@ -38,11 +41,11 @@
     </div>
   </div>
 
-
+<!--  -->
   <div class = "create-comment" *ngIf="isLogin">
     <form>
       <div class = "form-group">
-        <label>{{username}}</label>
+        <label class="nameLabel">{{username}}</label>
         <div class = "input-group">
           <textarea #text placeholder="Type comment..."></textarea>
         </div>
@@ -55,7 +58,15 @@
 
   <div class = "comments">
     <div *ngFor="let comment_ of product.comments.reverse()" class = "comment">
-        {{comment_.username}}
+      <div class="comments-box">
+          <div class="comments-owner">
+            <p>{{comment_.username}}:</p>
+            <p class="comments-date">{{comment_.date}}</p>
+          </div>
+          <div class="comments-text">
+            {{comment_.text}}
+          </div>
+      </div>
     </div>
   </div>
 
