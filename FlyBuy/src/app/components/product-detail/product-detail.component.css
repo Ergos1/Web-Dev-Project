@@ -1,15 +1,22 @@
 .main {
+  display: flex;
+  flex-direction: column;
+
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 1%;
 }
 
+.head{
+  display: flex;
+  justify-content: space-around;
+}
+
 .image {
   padding: 0;
-  float: left;
   margin-right: 5%;
-  width: 45%;
+  width:700px;
 }
 
 .main .image img {
@@ -60,3 +67,14 @@
   margin-top: .2%;
 }
 
+.create-comment{
+  margin:0 auto;
+  width:50%;
+  padding: 10px;
+  background-color: gray;
+}
+
+.create-comment textarea{
+  
+  width:100%;
+}

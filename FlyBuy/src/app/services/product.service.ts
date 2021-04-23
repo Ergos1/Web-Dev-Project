@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Product } from 'src/interfaces/product';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +12,11 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
+  handleError(error: HttpErrorResponse):any{
+    return throwError(error);
+  }
+
+
   getProducts(): Observable<Product[]>{ // READ
     return this.http.get<Product[]>(this.url);
   }
@@ -19,8 +25,12 @@ export class ProductService {
     return this.http.get<Product[]>(`http://127.0.0.1:8000/api/categories/${categoryId}/products/`)
   }
 
-  getProduct(id: number): Observable<Product>{ // READ
+  getProductById(id: number): Observable<Product>{ // READ
     return this.http.get<Product>(this.url + id + '/');
+  }
+
+  getProductByName(name: string): Observable<Product | any>{
+    return this.http.get<Product>(this.url + name + '/').pipe(catchError(this.handleError));
   }
 
   updateProduct(Product: Product): Observable<Product>{ // UPDATE

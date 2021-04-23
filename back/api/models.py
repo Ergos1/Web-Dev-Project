@@ -29,7 +29,7 @@ class Image(models.Model):
 
 class Comment(models.Model):
     username = models.CharField(max_length=300)
-    date = models.DateTimeField(auto_now_add=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True, )
     text = models.TextField(default='')
     likes = models.IntegerField(default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

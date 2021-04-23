@@ -1,5 +1,14 @@
 <app-sidebar></app-sidebar>
 <div class = "main" [ngClass] = "isOpen ? '' : 'sidebar--close' ">
+
+
+  <ng-template #modalAlert let-c="close" let-d="dismiss">
+    <div class="modal-body">
+    </div>
+  </ng-template>
+
+
+
   <app-header></app-header>
   <router-outlet></router-outlet>
   <div class = "full"></div><!--Для заполнения пустого пространство между header и footer. Таким образом, footer будет всегда стоять снизу-->

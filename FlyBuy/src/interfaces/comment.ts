@@ -1,7 +1,9 @@
+import { NumberSymbol } from "@angular/common";
 import {User} from "../interfaces/user";
 export interface Comment {
-    username:User,
+    username:string,
     text:string,
     date:string,
-    likes:number
+    likes:number,
+    product_id:number
 }

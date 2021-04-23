@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Category, Product, News, Image
+from api.models import Category, Product, News, Image, Comment
 from django.contrib.auth.models import User
 
 
@@ -26,14 +26,22 @@ class ImageSerializerForProduct(serializers.ModelSerializer):
         fields = ('id', 'url')
 
 
+class CommentSerializerForProduct(serializers.ModelSerializer):
+    date = serializers.DateTimeField(read_only=True, format='%H:%M, %d.%m.%Y')
+    class Meta:
+        model = Comment
+        fields = ('id', 'username', 'date', 'text', 'likes')
+
+
 class ProductSerializer(serializers.ModelSerializer):
     category_id = serializers.IntegerField()
     image_urls = ImageSerializerForProduct(read_only=True, many=True, source='image_set')
+    comments = CommentSerializerForProduct(read_only=True, many=True, source='comment_set')
 
     class Meta:
         model = Product
         fields = ('id', 'name', 'price', 'description', 'rating', 'likes',
-                  'views', 'category_id', 'image_urls')
+                  'views', 'category_id', 'image_urls', 'comments')
 
 
 class NewsSerializer(serializers.Serializer):
@@ -66,7 +74,28 @@ class ImageSerializer(serializers.ModelSerializer):
         model = Image
         fields = ('id', 'url', 'product_id')
 
+
+class CommentSerializer(serializers.ModelSerializer):
+    product_id = serializers.IntegerField()
+    date = serializers.DateTimeField(read_only=True, format='%H:%M, %d.%m.%Y')
+    likes = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = Comment
+        fields = ('id', 'username', 'date', 'text', 'likes', 'product_id')
+
+
 class UserSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(max_length=150)
+    last_name = serializers.CharField(max_length=150)
+    is_staff = serializers.BooleanField(default=False, read_only=True)
+    password = serializers.CharField(write_only=True)
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'is_staff')
+        fields = ('id', 'username', 'password', 'is_staff', 'email', 'first_name', 'last_name')
+
+    def create(self, validated_data):
+        user = super(UserSerializer, self).create(validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user

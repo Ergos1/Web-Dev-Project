@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/interfaces/product';
-import {Image} from "../../../interfaces/image";
-import {FormControl, Validators} from '@angular/forms';
+import { Cart } from 'src/interfaces/cart';
+import { Comment } from 'src/interfaces/comment';
+import { UserService } from 'src/app/services/user.service';
+import { CommentService } from 'src/app/services/comment.service';
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -12,12 +16,30 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class ProductDetailComponent implements OnInit {
 
+  username!: string;
+  isLogin!: boolean;
   product!: Product;
-  ctrl = new FormControl(null, Validators.required);
-  constructor(private route: ActivatedRoute, private router: Router, private productService: ProductService) { }
+  constructor(private route: ActivatedRoute, private router: Router, 
+    private productService: ProductService, private userService:UserService,
+    private commentService:CommentService, private config: NgbRatingConfig,
+    private cartService:CartService) {
+      config.max = 10;
+      config.readonly = true;
+      cartService.ngOnInit();
+    }
 
   ngOnInit(): void {
     this.getProduct();
+    this.getIsLogin();
+  }
+
+  getIsLogin():void{
+    this.userService.getIsLogin().subscribe((data)=>{
+      this.isLogin=data;
+      if(this.isLogin){
+        this.username = JSON.parse(localStorage.getItem('user')||"{'username':''}").username;
+      }
+    })
   }
 
   getProductId(): number{
@@ -26,8 +48,9 @@ export class ProductDetailComponent implements OnInit {
 
   getProduct(): void{
     let id = this.getProductId();
-    this.productService.getProduct(id).subscribe((data) => {
+    this.productService.getProductById(id).subscribe((data) => {
       this.product = data;
+      console.log(this.product);
     });
   }
 
@@ -36,13 +59,18 @@ export class ProductDetailComponent implements OnInit {
     div.src = url;
   }
 
-  toggle(): void {
-    if (this.ctrl.disabled) {
-      this.ctrl.enable();
-    } else {
-      // this.product.rating +=
-      this.productService.updateRating(this.product, this.ctrl.value);
-      this.ctrl.disable();
-    }
+
+  addComment(text:string):void{
+    // let comment:Comment = {'username':this.username, 'text':text, 'likes':0, ''};
+    this.commentService.addComment({'username':this.username, 'text':text, 'product_id':this.product.id} as Comment).subscribe((data)=>{
+      console.log(data);
+    }, (error)=>{
+      console.log(error);
+    });
   }
+
+  addToCart():void{
+    this.cartService.addProduct(this.product);
+  }
+
 }

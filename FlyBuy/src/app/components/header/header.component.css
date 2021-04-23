@@ -84,3 +84,8 @@ header{
     border: none;
 }
 
+.sign-up{
+    border: none;
+    background-color: white;
+    color:blue;
+}

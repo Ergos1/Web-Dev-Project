@@ -1,11 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.request import Request
+from rest_framework.permissions import IsAuthenticated
 
-from django.shortcuts import Http404
-
-from api.models import News, Image, Category
-from api.serializers import NewsSerializer, ImageSerializer, CategorySerializer
+from api.models import News, Image, Category, Comment
+from api.serializers import NewsSerializer, ImageSerializer, CategorySerializer, CommentSerializer
 
 
 class CategoryDetail(APIView):
@@ -44,6 +42,22 @@ class ImageList(APIView):
 
     def post(self, request):
         serializer = ImageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
+
+class CommentList(APIView):
+    permission_classes = IsAuthenticated;
+    def get(self, request):
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

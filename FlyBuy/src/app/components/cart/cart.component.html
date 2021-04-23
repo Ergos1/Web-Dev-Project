@@ -1,1 +1,6 @@
-<p>cart works!</p>
+<ul>
+    <li *ngFor = "let product of cart.products">
+        {{product.name}}
+        <button (click)="showId(product)">Id</button>
+    </li>
+</ul>

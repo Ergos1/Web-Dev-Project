@@ -1,41 +1,40 @@
 <header>
+
+  <!--Sidebar open & close button-->
   <div class = "menu-wrapper">
     <button (click)="onChange()"><i class = "material-icons md-36">list</i></button>
     <h3>Dashboard</h3>
   </div>
-  <!-- <div class="Info">
-    доп инфа
-  </div> -->
+
+  <!--SerachBox-->
   <div class="searchBox">
-    <input class="searchInput"type="text" name="" placeholder="Search">
-    <button class="searchButton" href="#">
+    <input #search class="searchInput"type="text" placeholder="Search">
+    <button class="searchButton" (click)="goToProduct(search.value)">
         <i class="material-icons">search</i>
     </button>
   </div>
-  <!-- <div class="user-wrapper">
-    <img src="" alt="avatar">
-    <div class="user">
-    </div>
-  </div> -->
+
+  <!--Login & logout-->
   <div class="UserSets">
-    <div class="UserLogined" *ngIf="logIn">
-      <a>UserName</a>
+    <div class="UserLogined" *ngIf="isLogin">
+      <a>{{user.username}}</a>
       <button class = "btn-sign" (click)="logout()">
         <span class="material-icons">
           logout
         </span>
       </button>
     </div>
-    <div class="UserLogOuted" *ngIf="!logIn">
-      <button class = "btn-sign" (click)="openSignIn(content)">
+    <div class="UserLogOuted" *ngIf="!isLogin">
+      <button class = "btn-sign" (click)="openWindow(login)">
         <span class="material-icons">
           login
         </span>
       </button>
     </div>
   </div>
-
-  <ng-template #content let-c="close" let-d="dismiss">
+  
+  <!--Login window-->
+  <ng-template #login let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title" >Sign-In</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -57,10 +56,59 @@
           </div>
         </div>
       </form>
+      <p>Not have account yet? <button class = "sign-up" (click)="openWindow(registration)">sign-up</button></p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="login()">Login</button>
+      <button type="button" class="btn btn-primary" (click)="getToken()">Login</button>
     </div>
   </ng-template>
+
+  <!--Registration window-->
+  <ng-template #registration let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" >Sign-Up</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class = "form-group">
+          <label>Username</label>
+          <div class = "input-group">
+            <input type="text" [(ngModel)] = "username" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Password</label>
+          <div class = "input-group">
+            <input type="password" [(ngModel)] = "password" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Email</label>
+          <div class = "input-group">
+            <input type="email" [(ngModel)] = "email" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>First name</label>
+          <div class = "input-group">
+            <input type="text" [(ngModel)] = "first_name" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Last name</label>
+          <div class = "input-group">
+            <input type="text" [(ngModel)] = "last_name" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="register()">Register</button>
+    </div>
+  </ng-template>
+
 
 </header>
