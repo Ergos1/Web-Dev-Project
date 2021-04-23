@@ -5,7 +5,7 @@
 
     height:100%;
 
-    background-color: #dd2f65;
+    background-color: #03254c;
     overflow: hidden;
 }
 
@@ -39,11 +39,11 @@
     cursor: pointer;
 
     color:#000;
-    background-color: #c2c2c2;
+    background-color: #187bcd;
     border-radius: 30px 0 0 30px;
 }
 .sidebar-menu li.active{
-    color:#dd2f65;
+    color:#000;
     background-color: #fff;
     border-radius: 30px 0 0 30px;
 }
@@ -56,5 +56,5 @@
     color:#000;
 }
 .sidebar-menu li.active a{
-    color:#dd2f65;
+    color:#000;
 }

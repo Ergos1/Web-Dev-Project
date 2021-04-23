@@ -72,5 +72,7 @@ export class ProductDetailComponent implements OnInit {
   addToCart():void{
     this.cartService.addProduct(this.product);
   }
-
+  likeIt():void{
+    console.log("i like it");
+  }
 }
