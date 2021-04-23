@@ -9,18 +9,18 @@ import { User } from 'src/interfaces/user';
 })
 export class UserService {
 
-  readonly base_url:string = "http://127.0.0.1:8000/api/";//backend url
+  readonly base_url: string = 'http://127.0.0.1:8000/api/';//backend url
 
   constructor(private http: HttpClient) { }
 
-  login(username:string, password:string):Observable<AuthToken> {
+  login(username: string, password: string): Observable<AuthToken> {
     return this.http.post<AuthToken>(this.base_url + 'login/', {
       username,
       password
     })
   }
 
-  getUser(username:string):Observable<User>{
+  getUser(username: string): Observable<User>{
     return this.http.post<User>(this.base_url + 'user/', {
       username
     })

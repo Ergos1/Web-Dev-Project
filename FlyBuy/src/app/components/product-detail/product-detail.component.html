@@ -1,5 +1,54 @@
 <div class = "main">
-    <div class = "image">
-        <img [src]="product.image_urls[0].url" alt="">
+  <div class = "image">
+    <img [src]="product.image_urls[0].url" alt="">
+  </div>
+
+  <div class = "indetail">
+
+    <div class = "name">
+      <p id = "product_name">{{product.name}}</p>
     </div>
+    <div class = "description">
+      <p id = "desc">
+        {{product.description}}
+      </p>
+    </div>
+
+    <div class = "images">
+      <div *ngFor = "let image of product.image_urls" class="immg">
+        <button class = "btn" (click)="changeImage(image.url)"><img [src]="image.url" alt="{{product.name}}" class="photo"></button>
+      </div>
+    </div>
+
+    <div>
+      <div class = "price">
+        <p>Price: {{product.price}}$</p>
+      </div>
+      <div class = "rating">
+        <p> Rating: {{product.rating}} </p>
+      </div>
+      <div>
+        <div class="form-group">
+          <ngb-rating [formControl]="ctrl"></ngb-rating>
+          <div class="form-text small">
+            <div *ngIf="ctrl.invalid" class="text-danger">Please rate</div>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-outline-{{ ctrl.disabled ? 'danger' : 'success'}} mr-2" (click)="toggle()">
+          {{ ctrl.disabled ? "Cancel" : "Apply" }}
+        </button>
+        <button class="btn btn-sm btn-outline-primary mr-2" (click)="ctrl.setValue(null)">Clear</button>
+      </div>
+    </div>
+    <div>
+      <button clasd="cart">
+        Add to cart
+      </button>
+    </div>
+  </div>
+
+  <div class = "comments">
+
+  </div>
+
 </div>

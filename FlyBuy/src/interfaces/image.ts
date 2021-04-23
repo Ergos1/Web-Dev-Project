@@ -1,5 +1,5 @@
 export interface Image {
-    id:number,
-    url:string,
-    product_id:number;
+    id: number;
+    url: string;
+    product_id: number;
 }

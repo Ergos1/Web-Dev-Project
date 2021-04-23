@@ -2,14 +2,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    
-    margin: 50px;
+    margin: 40px;
 
 }
 .card-title{
     text-transform: capitalize;
     color:black;
-    
     font-weight: 600;
     font-size: large;
 }
@@ -19,16 +17,15 @@
 
 .card{
     margin-bottom: 3%;
-    padding: 2%;
+    padding: 1%;
 }
 .card-img-top{
-    height:75%;
+    height: 15rem;
 }
 .card-body{
     padding: 0;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
-
 
 .btn{
     width:100%;
