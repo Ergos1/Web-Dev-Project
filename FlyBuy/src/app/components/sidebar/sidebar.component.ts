@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'src/interfaces/menu-item';
 import { SidebarService } from "../../services/sidebar.service";
 import { menuItems } from '../../../mock-data/menu-items';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -14,12 +16,20 @@ export class SidebarComponent implements OnInit {
   isOpen!:boolean;
   log!:string;
 
-  constructor(private sidebarService:SidebarService, private router:Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private sidebarService:SidebarService, private router:Router, 
+    private activatedRoute: ActivatedRoute, private location:Location) { }
 
   ngOnInit(): void {
     this.menuItems = menuItems;
     this.getIsOpen();
-    this.getActive('');
+    this.setActive('');
+    this.checkUrlChange();
+  }
+
+  checkUrlChange():void{
+    this.location.onUrlChange((data)=>{
+      this.setActive(data.split('/')[1]);
+    })
   }
 
   getIsOpen():void{
@@ -29,7 +39,10 @@ export class SidebarComponent implements OnInit {
     })
   }
 
-  getActive(nameItem:string):void{
+  setActive(nameItem:string):void{
+    for (let i = 0; i < 3; i++) {
+      this.menuItems[i].active = false;
+    }
     if(nameItem == ''){
       let link = window.location.href;
       let arr = link.split('/');
@@ -42,7 +55,7 @@ export class SidebarComponent implements OnInit {
     }
     if(nameItem.trim() == '') nameItem = 'home';
     for(let i = 0; i < menuItems.length; i++){
-      if(menuItems[i]['name'].toLowerCase() == nameItem.toLowerCase()){
+      if(menuItems[i]['link'].toLowerCase() == nameItem.toLowerCase()){
         menuItems[i]['active'] = true;
       }
     }
@@ -56,12 +69,7 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  goToPage(url: string, item: MenuItem): void{
-    for (let i = 0; i < 3; i++) {
-      this.menuItems[i].active = false;
-    }
-    this.getActive(item.name);
+  goToPage(url: string): void{
     this.router.navigate([url]);
-  } // Only active will be white
-
+  }
 }

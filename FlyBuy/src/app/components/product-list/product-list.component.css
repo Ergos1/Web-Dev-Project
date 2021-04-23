@@ -39,3 +39,14 @@
     font-weight: 400;
     font-size: medium;
 }
+
+
+.views{
+    display: flex;
+    align-items: center;
+    
+    color:rgb(117,117,117);
+}
+.views i{
+    margin-right: 10px;
+}

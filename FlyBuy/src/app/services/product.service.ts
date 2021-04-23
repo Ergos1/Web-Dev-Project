@@ -26,25 +26,22 @@ export class ProductService {
   }
 
   getProductById(id: number): Observable<Product>{ // READ
-    return this.http.get<Product>(this.url + id + '/');
+    return this.http.get<Product>(this.url + id + '/get');
   }
 
   getProductByName(name: string): Observable<Product | any>{
-    return this.http.get<Product>(this.url + name + '/').pipe(catchError(this.handleError));
+    return this.http.get<Product>(this.url +name+'/search/').pipe(catchError(this.handleError));
   }
 
-  updateProduct(Product: Product): Observable<Product>{ // UPDATE
-    return this.http.put<Product>(`${this.url}/${Product.id}`, Product);
-  }
-  updateRating(product: Product, rating: number): Observable<Product> {
-    return this.http.put<Product>(`${this.url}/${product.id}/update_rating/${rating}`, rating);
+  updateProduct(product: Product): Observable<Product | any>{ // UPDATE
+    return this.http.put<Product>(`${this.url}${product.id}/manage`, product).pipe(catchError(this.handleError));
   }
 
-  deleteProduct(Product: Product): Observable<Product>{ // DELETE
-    return this.http.delete<Product>(`${this.url}/${Product.id}`);
+  deleteProduct(product: Product): Observable<Product>{ // DELETE
+    return this.http.delete<Product>(`${this.url}${product.id}`);
   }
 
-  addProduct(Product: Product): Observable<Product>{//CREATE
-    return this.http.post<Product>(`${this.url}`, Product);
+  addProduct(product: Product): Observable<Product>{//CREATE
+    return this.http.post<Product>(`${this.url}`, product);
   }
 }

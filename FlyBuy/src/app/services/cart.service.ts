@@ -28,12 +28,21 @@ export class CartService implements OnInit{
     this.saveCart();
   }
 
-  removeProduct(id:number){
+  removeProduct(id:number):void{
     this.cart.products.splice(id, 1);
     this.saveCart();
   }
 
+  
+  removeAllProducts():void{
+    this.cart.products = [];
+    this.saveCart();
+  }
+  
+  
   saveCart():void{
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
+
+
 }

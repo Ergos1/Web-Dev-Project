@@ -23,20 +23,31 @@
         <div class = "price">
           <p>Price: {{product.price}}$</p>
         </div>
-        <div class="like">
-          <button (click)="likeIt()">
-            like
-          </button>
-        </div>
-        <div class = "rating">
+        <div class = "likes">
           <p> Likes: {{product.likes}} </p>
         </div>
-        <ngb-rating [rate]="product.rating"></ngb-rating>
+        <div class = "rating">
+          <p>Rating: </p><ngb-rating [rate]="product.rating"></ngb-rating>
+        </div>
       </div>
-      <div>
-        <button class="cart" (click)="addToCart()">
-          Add to cart
-        </button>
+      <hr>
+      <div class = "buttons">
+        <div class = "add-like-product">
+          <button [ngClass]='liked==true ? "liked" : ""' (click)="likeIt()">
+            <i class = "material-icons">
+              thumb_up
+            </i>
+          </button>
+          <button class="cart" (click)="addToCart()">
+            <i class = "material-icons">
+              shopping_cart
+            </i>
+          </button>
+        </div>
+        <div class="share-product">
+          <img (click)="share('https://telegram.me/share/url?url=')" title = "Share by telegram" src = "https://logos-download.com/wp-content/uploads/2016/07/Telegram_logo_icon.png">
+          <img (click) = "share('https://wa.me/123456789?text=')" title = "Share by whatsapp" src = "https://logos-download.com/wp-content/uploads/2016/03/Whatsapp-ios7.png">
+      </div>
       </div>
     </div>
   </div>

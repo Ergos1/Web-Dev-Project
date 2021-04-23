@@ -50,7 +50,8 @@ class ImageList(APIView):
 
 
 class CommentList(APIView):
-    permission_classes = IsAuthenticated;
+    permission_classes = [IsAuthenticated];
+
     def get(self, request):
         comments = Comment.objects.all()
         serializer = CommentSerializer(comments, many=True)

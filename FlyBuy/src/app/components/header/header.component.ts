@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SidebarService } from "../../services/sidebar.service";
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
-import { Observable } from 'rxjs';
 import { User } from 'src/interfaces/user';
 import { AuthToken } from 'src/interfaces/authtoken';
 import { ProductService } from 'src/app/services/product.service';
@@ -106,11 +105,10 @@ export class HeaderComponent implements OnInit {
     
   }
 
-  
-
 
   logout():void{
     this.userService.setIsLogin(false);
+    location.reload();
   }
   
 
@@ -123,7 +121,8 @@ export class HeaderComponent implements OnInit {
       
       this.userService.setIsLogin(true);
       this.clearFields();
-    })
+      location.reload();
+  })
   }
 
   
