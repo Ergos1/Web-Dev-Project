@@ -9,7 +9,7 @@ import { Category } from 'src/interfaces/category';
 })
 export class CategoryComponent implements OnInit {
 
-  categories!:Category[];
+  categories!: Category[];
 
   constructor(private categoryService: CategoryService) { }
 
@@ -17,8 +17,8 @@ export class CategoryComponent implements OnInit {
     this.getCategories();
   }
 
-  getCategories():void{
-    this.categoryService.getCategories().subscribe((data)=>{
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe((data) => {
       this.categories = data;
     })
   }

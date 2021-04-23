@@ -14,10 +14,10 @@ export class ProductListComponent implements OnInit {
   category_name!:string;
 
   constructor(private route: ActivatedRoute, private router: Router, private productService:ProductService,
-    private categoryService:CategoryService) { }
+    private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-    this.getProducts(); 
+    this.getProducts();
   }
 
   getCategoryId():number{
