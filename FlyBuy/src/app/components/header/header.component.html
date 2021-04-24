@@ -7,11 +7,19 @@
   </div>
 
   <!--SerachBox-->
-  <div class="searchBox">
-    <input #search class="searchInput"type="text" placeholder="Search">
-    <button class="searchButton" (click)="goToProduct(search.value)">
+  <div class="searchBox" [ngClass] = 'search.trim()!="" ? "search-active" : ""'>
+    <input  class="searchInput"type="text" placeholder="Search" [(ngModel)]="search">
+    <button class="searchButton">
         <i class="material-icons">search</i>
     </button>
+  </div>
+
+  <div class="answer">
+    <ul style="z-index:100;" *ngIf = "search" class = "find">
+      <li *ngFor="let product of products | ProductFilter: search; let i = index">
+        <p><a (click)="goToProduct(product)">{{product.name}}</a></p>
+      </li>
+    </ul>
   </div>
 
   <!--Login & logout-->

@@ -11,9 +11,9 @@ urlpatterns = [
     path('categories/<int:category_id>/products/', product_list_by_category_id),
 
     path('products/', product_list),
-    path('products/<int:product_id>/get', product_detail_get),
-    path('products/<int:product_id>/manage', product_detail_manage),
-    path('products/<str:product_name>/search', product_by_name),
+    path('products/<int:product_id>/get/', product_detail_get),
+    path('products/<int:product_id>/manage/', product_detail_manage),
+    path('products/search/<str:product_name>/', product_by_name),
 
     path('news/', NewsList.as_view()),
     path('images/', ImageList.as_view()),

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/interfaces/product';
-import { Cart } from 'src/interfaces/cart';
 import { Comment } from 'src/interfaces/comment';
 import { UserService } from 'src/app/services/user.service';
 import { CommentService } from 'src/app/services/comment.service';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/services/cart.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -24,7 +24,7 @@ export class ProductDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, 
     private productService: ProductService, private userService:UserService,
     private commentService:CommentService, private config: NgbRatingConfig,
-    private cartService:CartService) {
+    private cartService:CartService, private location: Location) {
       config.max = 10;
       config.readonly = true;
       cartService.ngOnInit();
@@ -34,6 +34,14 @@ export class ProductDetailComponent implements OnInit {
     this.getProduct();
     this.getIsLogin();
     this.liked = false;
+    this.checkUrlChange();
+  }
+
+  checkUrlChange():void{
+    this.location.onUrlChange((data)=>{
+      console.log('I changed')
+      location.reload();
+    })
   }
 
   getIsLogin():void{
@@ -54,11 +62,17 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProductById(id).subscribe((data) => {
       this.product = data;
       this.product.views++;
-      this.productService.updateProduct(this.product).subscribe((data)=>{
-        console.log('Views added');
-      })
+      this.updateProduct();
     });
   }
+
+
+  updateProduct():void{
+    this.productService.updateProduct(this.product).subscribe((data)=>{
+      console.log('Product updated');
+    });
+  }
+
 
   changeImage(url: string): void {
     const div = document.querySelectorAll('img')[0];
@@ -94,6 +108,7 @@ export class ProductDetailComponent implements OnInit {
         alert('You liked');
         this.product.likes++;
         this.liked = true;
+        this.updateProduct();
       }, 
       (error)=>{
         alert('Please, login for the start');

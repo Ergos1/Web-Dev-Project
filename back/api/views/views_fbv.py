@@ -89,10 +89,11 @@ def product_detail_manage(request, product_id):
 
 @api_view(['GET'])
 def product_by_name(request, product_name):
+    print(product_name)
     try:
         product = Product.objects.get(name__iexact=product_name)
     except Exception as e:
-        return Response({'Message': str(e)}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'GET':
         serializer = ProductSerializer(product)

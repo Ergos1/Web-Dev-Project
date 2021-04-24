@@ -28,7 +28,7 @@ header{
     border-radius: 40px;
     border: none;
 }
-.searchBox:hover > .searchInput {
+.searchBox:hover > .searchInput, .search-active {
     width: 240px;
     padding: 0 6px;
 }
@@ -88,4 +88,13 @@ header{
     border: none;
     background-color: white;
     color:blue;
+}
+
+.answer {
+    top: 10%;
+    left: 50%;
+    background-color: #dd2f65;
+    z-index: 100;
+    position: absolute;
+    display: block;
 }

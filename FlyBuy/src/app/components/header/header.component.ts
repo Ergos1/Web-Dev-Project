@@ -26,6 +26,8 @@ export class HeaderComponent implements OnInit {
   //Service's fields
   isOpen!:boolean;
   isLogin!:boolean;
+  search = '';
+  products: Product[] = [];
 
   //Local stortage's fields
   user!:User;
@@ -48,6 +50,7 @@ export class HeaderComponent implements OnInit {
     this.isOpen = this.sidebarService.getIsOpen();
     this.getLogin();
     this.getIsLogin();
+    this.getProducts();
   }
 
 
@@ -178,17 +181,16 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  goToProduct(product_name:string):void{
-    let product:Product;
-    this.productService.getProductByName(product_name).subscribe((data)=>{
-      product=data;
-      this.router.navigateByUrl(`categories/${product.category_id}/products/${product.id}`);
-    }, (error)=>{
-      alert('Not found');
-    });
-
+  goToProduct(product:Product):void{
+    this.router.navigateByUrl(`categories/${product.category_id}/products/${product.id}`);
   }
 
+
+  getProducts(): void {
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
+    });
+  }
   
 
 
