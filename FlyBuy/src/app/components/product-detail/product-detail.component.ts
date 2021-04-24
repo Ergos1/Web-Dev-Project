@@ -19,38 +19,44 @@ export class ProductDetailComponent implements OnInit {
   username!: string;
   isLogin!: boolean;
   product!: Product;
-  constructor(private route: ActivatedRoute, private router: Router, 
-    private productService: ProductService, private userService:UserService,
-    private commentService:CommentService, private config: NgbRatingConfig,
-    private cartService:CartService) {
-      config.max = 10;
-      config.readonly = true;
-      cartService.ngOnInit();
-    }
+  liked!: boolean;
+
+  constructor(private route: ActivatedRoute, private router: Router,
+              private productService: ProductService, private userService: UserService,
+              private commentService: CommentService, private config: NgbRatingConfig,
+              private cartService: CartService) {
+    config.max = 10;
+    config.readonly = true;
+    cartService.ngOnInit();
+  }
 
   ngOnInit(): void {
     this.getProduct();
     this.getIsLogin();
+    this.liked = false;
   }
 
-  getIsLogin():void{
-    this.userService.getIsLogin().subscribe((data)=>{
-      this.isLogin=data;
-      if(this.isLogin){
-        this.username = JSON.parse(localStorage.getItem('user')||"{'username':''}").username;
+  getIsLogin(): void {
+    this.userService.getIsLogin().subscribe((data) => {
+      this.isLogin = data;
+      if (this.isLogin) {
+        this.username = JSON.parse(localStorage.getItem('user') || "{'username':''}").username;
       }
-    })
+    });
   }
 
-  getProductId(): number{
+  getProductId(): number {
     return Number(this.route.snapshot.paramMap.get('productId'));
   }
 
-  getProduct(): void{
+  getProduct(): void {
     let id = this.getProductId();
     this.productService.getProductById(id).subscribe((data) => {
       this.product = data;
-      console.log(this.product);
+      this.product.views++;
+      this.productService.updateProduct(this.product).subscribe((data) => {
+        console.log('Views added');
+      });
     });
   }
 
@@ -60,19 +66,51 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  addComment(text:string):void{
-    // let comment:Comment = {'username':this.username, 'text':text, 'likes':0, ''};
-    this.commentService.addComment({'username':this.username, 'text':text, 'product_id':this.product.id} as Comment).subscribe((data)=>{
-      console.log(data);
-    }, (error)=>{
+  addComment(text: string): void {
+    if (text.trim() === '') {
+      alert('Text can not be empty');
+      return;
+    }
+    this.commentService.addComment({
+      'username': this.username,
+      'text': text,
+      'product_id': this.product.id
+    } as Comment).subscribe((data) => {
+      location.reload();
+    }, (error) => {
       console.log(error);
     });
   }
 
-  addToCart():void{
+
+  addToCart(): void {
+    if (this.isLogin === false) {
+      alert('Please, login for the start!');
+      return;
+    }
     this.cartService.addProduct(this.product);
   }
-  likeIt():void{
-    console.log("i like it");
+
+
+  likeIt(): void {
+    if (this.liked === false) {
+      this.productService.updateProduct(this.product).subscribe((data) => {
+          alert('You liked');
+          this.product.likes++;
+          this.liked = true;
+        },
+        (error) => {
+          alert('Please, login for the start');
+        });
+    } else {
+      this.productService.updateProduct(this.product).subscribe((data) => {
+        this.product.likes--;
+        this.liked = false;
+      });
+    }
+  }
+
+  share(link: string): void {
+    window.open(link + 'Смотри, что нашёл, тебе пригодиться: ' + location.href);
   }
 }

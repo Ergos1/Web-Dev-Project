@@ -20,7 +20,7 @@ export class CategoryComponent implements OnInit {
   getCategories(): void {
     this.categoryService.getCategories().subscribe((data) => {
       this.categories = data;
-    })
+    });
   }
 
 }

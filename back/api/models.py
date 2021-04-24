@@ -42,4 +42,5 @@ class News(models.Model):
     link = models.CharField(max_length=300, blank=True)
 
 
-
+# class Cart(models.Models):
+    

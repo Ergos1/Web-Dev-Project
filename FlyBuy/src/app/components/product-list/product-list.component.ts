@@ -10,31 +10,31 @@ import { Product } from 'src/interfaces/product';
 })
 export class ProductListComponent implements OnInit {
 
-  products!:Product[];
-  category_name!:string;
+  products!: Product[];
+  categoryName!: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private productService:ProductService,
+  constructor(private route: ActivatedRoute, private router: Router, private productService: ProductService,
     private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.getProducts();
   }
 
-  getCategoryId():number{
+  getCategoryId(): number{
     return Number(this.route.snapshot.paramMap.get('categoryId'));
   }
 
-  getProducts():void{
-    this.productService.getProductsByCategoryId(this.getCategoryId()).subscribe((data)=>{
+  getProducts(): void{
+    this.productService.getProductsByCategoryId(this.getCategoryId()).subscribe((data) => {
       this.products = data;
       this.getCategoryName();
-    })
+    });
   }
 
-  getCategoryName():void{
-    this.categoryService.getCategory(this.getCategoryId()).subscribe((data)=>{
-      this.category_name = data.name;
-    })
+  getCategoryName(): void{
+    this.categoryService.getCategory(this.getCategoryId()).subscribe((data) => {
+      this.categoryName = data.name;
+    });
   }
 
 }

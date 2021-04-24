@@ -16,6 +16,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthinterceptorService } from './services/authinterceptor.service';
+import {SearchProducntPipe} from './searching/searchProducnt.pipe';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { AuthinterceptorService } from './services/authinterceptor.service';
     SidebarComponent,
     CartComponent,
     CategoryComponent,
+    SearchProducntPipe
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ import { AuthinterceptorService } from './services/authinterceptor.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthinterceptorService,
-      multi: true 
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarService } from "../../services/sidebar.service";
+import { SidebarService } from '../../services/sidebar.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
-import { Observable } from 'rxjs';
 import { User } from 'src/interfaces/user';
 import { AuthToken } from 'src/interfaces/authtoken';
 import { ProductService } from 'src/app/services/product.service';
@@ -16,43 +15,42 @@ import { Alert } from 'src/interfaces/alert';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
-  //Form's fields
-  username!:string;
-  password!:string;
-  email!:string;
-  first_name!:string;
-  last_name!:string;
 
-  //Service's fields
-  isOpen!:boolean;
-  isLogin!:boolean;
+  // Form's fields
+  username!: string;
+  password!: string;
+  email!: string;
+  first_name!: string;
+  last_name!: string;
 
-  //Local stortage's fields
-  user!:User;
-  token!:AuthToken;
+  // Service's fields
+  isOpen!: boolean;
+  isLogin!: boolean;
 
-
-  constructor(private sidebarService:SidebarService, config: NgbModalConfig,
-     private modalService: NgbModal, private userService:UserService,
-     private productService: ProductService, private router:Router,
-     private alertService: AlertService) {
+  // Local stortage's fields
+  user!: User;
+  token!: AuthToken;
+  search = '';
+  products: Product[] = [];
+  constructor(private sidebarService: SidebarService, config: NgbModalConfig,
+              private modalService: NgbModal, private userService: UserService,
+              private productService: ProductService, private router: Router,
+              private alertService: AlertService) {
     config.backdrop = 'static';
     config.keyboard = false;
     config.animation = true;
   }
 
- 
   ngOnInit(): void {
     this.clearFields();
-
+    this.getProducts();
     this.isOpen = this.sidebarService.getIsOpen();
     this.getLogin();
     this.getIsLogin();
   }
 
 
-  clearFields():void{
+  clearFields(): void {
     this.username = '';
     this.password = '';
     this.email = '';
@@ -61,140 +59,147 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  onChange():void{
+  onChange(): void{
     this.isOpen = !this.isOpen;
     this.sidebarService.setIsOpen(this.isOpen);
   }
-  
-  
-  openWindow(content:object):void{
+
+
+  openWindow(content: object): void{
     this.modalService.open(content, { centered: true, size: 'sm' });
   }
 
 
-  getIsLogin():void{
+  getIsLogin(): void{
     this.userService.getIsLogin().subscribe((data)=>{
       this.isLogin = data;
-      if(this.isLogin == false) this.deleteAll();
+      if (this.isLogin === false) {
+        this.deleteAll();
+      }
     });
   }
 
 
-  getLogin():void{
+  getLogin(): void {
     this.isOpen = this.sidebarService.getIsOpen();
-    if(localStorage.getItem('token')){
-      this.token = JSON.parse(localStorage.getItem('token')||'');
-      if(localStorage.getItem('user')){
-        this.user = JSON.parse(localStorage.getItem('user')||'');
+    if (localStorage.getItem('token')) {
+      this.token = JSON.parse(localStorage.getItem('token') || '');
+      if (localStorage.getItem('user')) {
+        this.user = JSON.parse(localStorage.getItem('user') || '');
         this.userService.setIsLogin(true);
       }
-      else this.deleteToken();
+      else {
+        this.deleteToken();
+      }
     }
   }
 
-  
-  getToken():void{
-    this.userService.getToken(this.username, this.password).subscribe((data)=>{
-      this.token = data;
-      this.saveToken();
-      this.getUser();
-    },
-    (error) =>{
-      let alert:Alert = {'message':'Login or password is incorrect'}
-      this.alertService.showAlert(alert);
-    })
-    
+  getToken(): void{
+    this.userService.getToken(this.username, this.password).subscribe((data) => {
+        this.token = data;
+        this.saveToken();
+        this.getUser();
+      },
+      (error) => {
+        let alert: Alert = {'message':'Login or password is incorrect'}
+        this.alertService.showAlert(alert);
+      });
   }
 
-  
 
-
-  logout():void{
+  logout(): void{
     this.userService.setIsLogin(false);
+    location.reload();
   }
-  
 
-  getUser():void{
+
+  getUser(): void{
     this.userService.getUser(this.username).subscribe((data)=>{
       this.user = data;
       this.saveUser();
 
       this.modalService.dismissAll('done');
-      
+
       this.userService.setIsLogin(true);
       this.clearFields();
-    })
+      location.reload();
+    });
   }
 
-  
-  saveToken():void{
+
+  saveToken(): void{
     localStorage.setItem('token', JSON.stringify(this.token));
   }
 
 
-  saveUser():void{
+  saveUser(): void{
     localStorage.setItem('user', JSON.stringify(this.user));
   }
 
 
-  deleteAll():void{
+  deleteAll(): void{
     this.deleteToken();
     this.deleteUser();
     this.deleteCart();
   }
 
-  deleteCart():void{
+  deleteCart(): void{
     localStorage.removeItem('cart');
   }
 
 
-  deleteToken():void{
+  deleteToken(): void{
     localStorage.removeItem('token');
   }
 
-  
-  deleteUser():void{
+
+  deleteUser(): void{
     localStorage.removeItem('user');
   }
 
 
-  register():void{
+  register(): void{
     this.username = this.username.trim();
     this.password = this.password.trim();
     this.email = this.email.trim();
     this.first_name = this.first_name.trim();
     this.last_name = this.last_name.trim();
 
-    let user:User = {'username': this.username, 'password': this.password, "email": this.email,
-     "first_name": this.first_name, "last_name": this.last_name, 'is_staff': false};
-    
-     this.userService.addUser(user).subscribe((data)=>{
-      alert('User were created!!!')
-      this.modalService.dismissAll('done');
-    }, (error)=>{
-      console.log(error);
-      alert('Not good something');
-    }
-    )
+    let user: User = {'username': this.username, 'password': this.password, "email": this.email,
+      "first_name": this.first_name, "last_name": this.last_name, 'is_staff': false};
+
+    this.userService.addUser(user).subscribe((data) => {
+        alert('User was created!!!');
+        this.modalService.dismissAll('done');
+      }, (error) => {
+        console.log(error);
+        alert('Not good something');
+      }
+    );
   }
 
 
-  goToProduct(product_name:string):void{
-    let product:Product;
-    this.productService.getProductByName(product_name).subscribe((data)=>{
-      product=data;
-      this.router.navigateByUrl(`categories/${product.category_id}/products/${product.id}`);
-    }, (error)=>{
-      alert('Not found');
+  // goToProduct(product_name: string):void{
+  //   let product: Product;
+  //   this.productService.getProductByName(product_name).subscribe((data) => {
+  //     product = data;
+  //     this.router.navigateByUrl(`categories/${product.category_id}/products/${product.id}`);
+  //   }, (error) => {
+  //     alert('Not found');
+  //   });
+  //
+  // }
+
+  getProducts(): void {
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
     });
-
   }
 
-  
-
-
-  
-
-
+  clearSearch(): void {
+    // const disabled = document.querySelector('.link-product');
+    // console.log(disabled);
+    this.search = '';
+  }
 
 }

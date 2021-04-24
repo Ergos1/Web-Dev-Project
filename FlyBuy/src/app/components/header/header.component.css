@@ -20,7 +20,7 @@ header{
 .user-wrapper{
     width: 10%;
     background-color: chocolate;
-    
+
 }
 .searchBox {
     background: #2f3640;
@@ -36,6 +36,7 @@ header{
   background: white;
   color : #2f3640;
 }
+
 .searchButton {
     color : white;
     float: right;
@@ -89,3 +90,24 @@ header{
     background-color: white;
     color:blue;
 }
+
+.answer {
+  top: 10%;
+  left: 50%;
+  background-color: #03254c;
+  z-index: 100;
+  color: #ffffff;
+  position: absolute;
+  display: block;
+  line-height: 10px;
+}
+
+.answer .find {
+  padding: 5px;
+}
+
+.answer a {
+  color: white;
+}
+
+

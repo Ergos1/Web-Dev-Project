@@ -9,7 +9,6 @@ from api.models import Category, Product
 from api.serializers import CategorySerializer, ProductSerializer, UserSerializer
 
 
-
 @api_view(['GET', 'POST'])
 # @permission_classes([IsAuthenticated])
 def category_list(request):
@@ -56,8 +55,8 @@ def product_list_by_category_id(request, category_id):
         return Response(serializer.data)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def product_detail(request, product_id):
+@api_view(['GET'])
+def product_detail_get(request, product_id):
     try:
         product = Product.objects.get(id=product_id)
     except Exception as e:
@@ -67,7 +66,16 @@ def product_detail(request, product_id):
         serializer = ProductSerializer(product)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+
+@api_view(['PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def product_detail_manage(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+    except Exception as e:
+        return Response({'Message': str(e)})
+
+    if request.method == 'PUT':
         serializer = ProductSerializer(instance=product, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -89,4 +97,3 @@ def product_by_name(request, product_name):
     if request.method == 'GET':
         serializer = ProductSerializer(product)
         return Response(serializer.data)
-

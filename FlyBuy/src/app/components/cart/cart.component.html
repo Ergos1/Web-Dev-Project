@@ -1,25 +1,63 @@
-
 <div class="main">
-    <div class="subFor" *ngFor = "let product of cart.products">
-        <div class="product-box">
-            <div class="left-side">
-                <img class="image" [src]="product.image_urls[0].url" alt="">
-            </div>
-            <div class="right-side">
-                <p class="name">{{product.name}}</p>
-                <p class="description">{{product.description}}</p>
-                <p class="price">Price: {{product.price}}$</p>
-                <p class="rating">Rating: {{product.rating}}</p>
-                <p class="likes">Likes: <span>{{product.likes}}</span></p>
-                <div>
-                    <button>
-                        Delete
-                    </button>
-                </div>
-            </div>
+  <div class="subFor" *ngFor = "let product of cart.products">
+    <div class="product-box">
+      <div class="left-side">
+        <img class="image" [src]="product.image_urls[0].url" alt="">
+      </div>
+      <div class="right-side">
+        <p class="name">{{product.name}}</p>
+        <p class="description">{{product.description}}</p>
+        <p class="price">Price: {{product.price}}$</p>
+        <p class="rating">Rating: {{product.rating}}</p>
+        <p class="likes">Likes: <span>{{product.likes}}</span></p>
+        <div>
+          <button class = "btn-delete" (click)="deleteFromCart(product)">
+            Delete
+          </button>
         </div>
+      </div>
     </div>
-    <button>
-        Borrow
-    </button>
+  </div>
+  <button class = "btn-order" *ngIf='cart && cart.products.length>0' (click)="openWindow(orderform)">
+    To order
+  </button>
+  <div class = "no-products" *ngIf='!(cart && cart.products.length>0)'>
+    <h4>Not products yet !</h4>
+    <button class = 'btn-go-to-shop' routerLink="/categories/">Go to shop</button>
+  </div>
 </div>
+
+
+<ng-template #orderform let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title" >Sign-In</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class = "form-group">
+        <label>Country</label>
+        <div class = "input-group">
+          <input type="text" #country>
+        </div>
+      </div>
+      <div class = "form-group">
+        <label>City</label>
+        <div class = "input-group">
+          <input type="text" #city>
+        </div>
+      </div>
+      <div class = "form-group">
+        <label>Address</label>
+        <div class = "input-group">
+          <input type="text" #address>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="toOrder(country.value, city.value, address.value)" >Get</button>
+  </div>
+</ng-template>

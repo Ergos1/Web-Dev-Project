@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  
+
   /* background-color: rosybrown; */
   height: 100%;
   width: 100%;
@@ -105,7 +105,7 @@
   color: #03254c;
 }
 .create-comment textarea{
-  
+
   width:100%;
 }
 textarea{
@@ -143,4 +143,40 @@ textarea{
 }
 .comments :last-child .comments-box{
   border:none;
+}
+
+.rating{
+  display: flex;
+}
+.rating p{
+  margin-right: 10px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-like-product button{
+  border:none;
+  background-color: white;
+}
+
+.add-like-product, .share-product{
+  display: flex;
+  justify-content: space-between;
+
+  width:10%;
+}
+
+.share-product img{
+  width: 27px;
+}
+
+.share-product img:hover{
+  cursor: pointer;
+}
+
+.liked{
+  color:blue;
 }

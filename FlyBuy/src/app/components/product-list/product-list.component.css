@@ -1,41 +1,52 @@
 .main{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 40px;
 
 }
 .card-title{
-    text-transform: capitalize;
-    color:black;
-    font-weight: 600;
-    font-size: large;
+  text-transform: capitalize;
+  color:black;
+  font-weight: 600;
+  font-size: large;
 }
 .card-title:hover{
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .card{
-    margin-bottom: 3%;
-    padding: 1%;
+  margin-bottom: 3%;
+  padding: 1%;
 }
 .card-img-top{
-    height: 15rem;
+  height: 15rem;
 }
 .card-body{
-    padding: 0;
-    padding-bottom: 20px;
+  padding: 0;
+  padding-bottom: 20px;
 }
 
 .btn{
-    width:100%;
+  width:100%;
 }
 
 
 .category-name{
-    color:rgb(117,117,117);
+  color:rgb(117,117,117);
 }
 .price{
-    font-weight: 400;
-    font-size: medium;
+  font-weight: 400;
+  font-size: medium;
+}
+
+
+.views{
+  display: flex;
+  align-items: center;
+
+  color:rgb(117,117,117);
+}
+.views i{
+  margin-right: 10px;
 }

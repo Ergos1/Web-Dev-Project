@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarService } from "../app/services/sidebar.service";
+import { SidebarService } from '../app/services/sidebar.service';
 import { AlertService } from './services/alert.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Alert } from 'src/interfaces/alert';
@@ -9,12 +9,11 @@ import { Alert } from 'src/interfaces/alert';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  
-  isOpen!:boolean;
-  alert!:Alert;
+  isOpen!: boolean;
+  alert!: Alert;
 
-  constructor(private sidebarService:SidebarService, private alertService:AlertService,
-    private config: NgbModalConfig, private modalService: NgbModal,){
+  constructor(private sidebarService: SidebarService, private alertService: AlertService,
+    private config: NgbModalConfig, private modalService: NgbModal){
     config.backdrop = 'static';
     config.keyboard = false;
     config.animation = true;
@@ -24,20 +23,19 @@ export class AppComponent implements OnInit{
     this.getIsOpen();
   }
 
-  getIsOpen():void{
-    this.sidebarService.isOpen.subscribe(()=>{
+  getIsOpen(): void{
+    this.sidebarService.isOpen.subscribe(() => {
       this.isOpen = this.sidebarService.getIsOpen();
-    })
+    });
   }
-
-  getAlert():void{
-    this.alertService.getAlert().subscribe((data)=>{
+  getAlert(): void{
+    this.alertService.getAlert().subscribe((data) => {
       this.alert = data;
       this.modalService.open(alert);
-    })
+    });
   }
 
-  showMe(content:any):void{
+  showMe(content: any): void {
     console.log(content);
   }
 

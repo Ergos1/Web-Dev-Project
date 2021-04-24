@@ -6,20 +6,19 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 })
 export class SidebarService implements OnInit {
 
-  isOpen:BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(true);;
+  isOpen: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(true);
 
   constructor() { }
 
-  ngOnInit():void{
+  ngOnInit(): void {
     // this.isOpen = new BehaviorSubject<boolean>(true);
   }
 
-  getIsOpen():boolean{
+  getIsOpen(): boolean {
     return this.isOpen.getValue();
   }
-  setIsOpen(value:boolean):void{
+  setIsOpen(value: boolean): void{
     this.isOpen.next(value);
   }
-
 
 }

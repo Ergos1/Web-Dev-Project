@@ -11,11 +11,11 @@ import { News } from 'src/interfaces/news';
 })
 export class HomeComponent implements OnInit {
 
-  isOpen:boolean = false;
+  isOpen: boolean = false;
   images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-  news!:News[];
+  news!: News[];
 
-  constructor(ngbConfig: NgbConfig, ngbAlertConfig: NgbAlertConfig, private newsService:NewsService, private router: Router) {
+  constructor(ngbConfig: NgbConfig, ngbAlertConfig: NgbAlertConfig, private newsService: NewsService, private router: Router) {
     ngbConfig.animation = true;
   }
 
@@ -23,13 +23,13 @@ export class HomeComponent implements OnInit {
     this.getNews();
   }
 
-  getNews():void{
+  getNews(): void{
     this.newsService.getNews().subscribe((data)=>{
       this.news = data;
     });
   }
 
-  goToPage(url:string):void{
+  goToPage(url: string): void{
     this.router.navigate([url]);
   }
 
