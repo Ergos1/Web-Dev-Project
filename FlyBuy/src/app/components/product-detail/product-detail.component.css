@@ -14,6 +14,7 @@
   width: 60%;
   padding: 2%;
 }
+
 .head{
   display: flex;
   justify-content: space-around;
@@ -165,12 +166,12 @@ textarea{
 .add-like-product, .share-product{
   display: flex;
   justify-content: space-between;
-
   width:10%;
 }
 
 .share-product img{
   width: 27px;
+  height: 27px;
 }
 
 .share-product img:hover{

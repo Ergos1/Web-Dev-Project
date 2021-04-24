@@ -7,6 +7,8 @@
   </div>
 
   <!--SerachBox-->
+
+
   <div class="searchBox" [ngClass] = 'search.trim()!="" ? "search-active" : ""'>
     <input  class="searchInput"type="text" placeholder="Search" [(ngModel)]="search">
     <button class="searchButton">
@@ -14,7 +16,8 @@
     </button>
   </div>
 
-  <div class="answer">
+  
+  <div class="answer" [ngClass] = 'isOpen ? "answer--open" : "answer--close"'>
     <ul style="z-index:100;" *ngIf = "search" class = "find">
       <li *ngFor="let product of products | ProductFilter: search; let i = index">
         <p><a (click)="goToProduct(product)">{{product.name}}</a></p>

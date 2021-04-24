@@ -22,19 +22,20 @@ header{
     background-color: chocolate;
     
 }
+/*  */
 .searchBox {
-    background: #2f3640;
+    background: #03254c;
+    width: 30%;
     height: 40px;
     border-radius: 40px;
     border: none;
 }
-.searchBox:hover > .searchInput, .search-active {
-    width: 240px;
-    padding: 0 6px;
+.searchBox input{
+    padding-left: 8px;
 }
 .searchBox:hover > .searchButton {
   background: white;
-  color : #2f3640;
+  color : #03254c;
 }
 .searchButton {
     color : white;
@@ -43,31 +44,22 @@ header{
     height: 40px;
     border-radius: 50%;
     border: none;
-    background: #2f3640;
+    background: #03254c;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.5s;
 }
 .searchInput {
     border:none;
     background: none;
     outline:none;
     float:left;
-    padding: 0;
     color: white;
     font-size: 16px;
-    transition: 0.4s;
     line-height: 40px;
-    width: 0px;
 }
-@media screen and (max-width: 650px) {
-    .searchBox:hover > .searchInput {
-        width: 150px;
-        padding: 0 6px;
-    }
-}
-
+ 
+/* user */
 .UserSets{
     width: 15%;
 }
@@ -91,10 +83,22 @@ header{
 }
 
 .answer {
-    top: 10%;
-    left: 50%;
-    background-color: #dd2f65;
+    top: 7%;
+    left: 40%;
+    background-color: #03254c;
     z-index: 100;
+    color: white;
     position: absolute;
     display: block;
 }
+.answer--open{
+    width: 23%;
+    left: 51%;
+
+}
+.answer--close{
+    width: 28%;
+    left: 38%;
+
+}
+
