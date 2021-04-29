@@ -5,6 +5,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { StaffToolsComponent } from './components/staff-tools/staff-tools.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'categories/:categoryId/products', component:ProductListComponent},
   {path:'categories/:categoryId/products/:productId', component:ProductDetailComponent},
   {path:'cart', component:CartComponent},
+  {path:'staff-tools', component: StaffToolsComponent}
 ];
 
 @NgModule({

@@ -26,22 +26,18 @@ export class ProductService {
   }
 
   getProductById(id: number): Observable<Product>{ // READ
-    return this.http.get<Product>(this.url + id + '/get/');
-  }
-
-  getProductByName(name: string): Observable<Product | any>{
-    return this.http.get<Product>(this.url +'search/'+name+'/').pipe(catchError(this.handleError));
+    return this.http.get<Product>(this.url + id + '/');
   }
 
   updateProduct(product: Product): Observable<Product | any>{ // UPDATE
-    return this.http.put<Product>(`${this.url}${product.id}/manage/`, product).pipe(catchError(this.handleError));
+    return this.http.put<Product>(`${this.url}${product.id}/`, product).pipe(catchError(this.handleError));
   }
 
   deleteProduct(product: Product): Observable<Product>{ // DELETE
-    return this.http.delete<Product>(`${this.url}${product.id}`);
+    return this.http.delete<Product>(`${this.url}${product.id}/`);
   }
 
-  addProduct(product: Product): Observable<Product>{//CREATE
-    return this.http.post<Product>(`${this.url}`, product);
+  addProduct(product: Product): Observable<Product | any>{//CREATE
+    return this.http.post<Product>(`${this.url}`, product).pipe(catchError(this.handleError));
   }
 }

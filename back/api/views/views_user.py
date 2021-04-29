@@ -20,7 +20,6 @@ def user_by_username(request):
             return Response({'Message': str(e)})
 
         serializer = UserSerializer(user)
-        print(serializer.data)
         return Response(serializer.data)
 
 

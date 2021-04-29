@@ -4,6 +4,7 @@ import { MenuItem } from 'src/interfaces/menu-item';
 import { SidebarService } from "../../services/sidebar.service";
 import { menuItems } from '../../../mock-data/menu-items';
 import { Location } from '@angular/common';
+import { User } from 'src/interfaces/user';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class SidebarComponent implements OnInit {
   }
 
   setActive(nameItem:string):void{
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < menuItems.length; i++) {
       this.menuItems[i].active = false;
     }
     if(nameItem == ''){
@@ -69,7 +70,20 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  goToPage(url: string): void{
-    this.router.navigate([url]);
+  goToPage(item: MenuItem): void{
+    if(item.need_permission){
+      if(!this.checkToPermission()){
+        alert('You have not permission');
+        return;
+      }
+    }
+    this.router.navigate([item.link]);
+  }
+
+  checkToPermission():boolean{
+    if(localStorage.getItem('user')){
+      return JSON.parse(localStorage.getItem('user') || '{"is_staff":false}').is_staff == true;
+    }
+    return false;
   }
 }

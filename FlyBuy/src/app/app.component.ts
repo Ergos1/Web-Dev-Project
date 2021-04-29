@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarService } from "../app/services/sidebar.service";
 import { AlertService } from './services/alert.service';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Alert } from 'src/interfaces/alert';
 @Component({
   selector: 'app-root',
@@ -11,17 +10,14 @@ import { Alert } from 'src/interfaces/alert';
 export class AppComponent implements OnInit{
   
   isOpen!:boolean;
-  alert!:Alert;
+  alerts!:Alert[];
 
-  constructor(private sidebarService:SidebarService, private alertService:AlertService,
-    private config: NgbModalConfig, private modalService: NgbModal,){
-    config.backdrop = 'static';
-    config.keyboard = false;
-    config.animation = true;
+  constructor(private sidebarService:SidebarService, private alertService:AlertService){
   }
 
   ngOnInit(){
     this.getIsOpen();
+    this.getAlert();
   }
 
   getIsOpen():void{
@@ -31,14 +27,16 @@ export class AppComponent implements OnInit{
   }
 
   getAlert():void{
+    this.alerts = [];
     this.alertService.getAlert().subscribe((data)=>{
-      this.alert = data;
-      this.modalService.open(alert);
+      if(data.type!='default'){
+        this.alerts.push(data);
+      }
     })
   }
 
-  showMe(content:any):void{
-    console.log(content);
+  close(alert: Alert) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
   }
 
 }

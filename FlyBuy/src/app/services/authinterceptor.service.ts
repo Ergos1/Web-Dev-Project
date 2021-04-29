@@ -9,7 +9,6 @@ import { AuthToken } from 'src/interfaces/authtoken';
 export class AuthinterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    // console.log(request);
     if(localStorage.getItem('token')){
       const token:AuthToken = JSON.parse(localStorage.getItem('token') || '{"token":""}')
       const newRequest = request.clone({

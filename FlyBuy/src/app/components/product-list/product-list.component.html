@@ -1,6 +1,6 @@
 <div class = "main">
     <div *ngFor = "let product of products" class="card" style="width: 18rem;">
-        <img class="card-img-top" [src]="product.image_urls[0].url" alt="Card image cap">
+        <img class="card-img-top" [src]="product.image_urls.length ? product.image_urls[0].url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjvg2PX8WrRFty9COIwiAHSmYXYdMfyz1d_rN0oqdV2tnrbA1imG8vjNKw1u0da0cBxDU&usqp=CAU'" alt="Card image cap">
         <hr>
         <a routerLink = "/categories/{{product.category_id}}/products/{{product.id}}" class="card-title">{{product.name}}</a>
         <div class="card-body">

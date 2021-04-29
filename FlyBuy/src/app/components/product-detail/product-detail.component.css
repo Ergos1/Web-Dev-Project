@@ -50,12 +50,21 @@
   color: #0F1111;
 }
 
+.indetail .name{
+  display: flex;
+  justify-content: space-between;
+}
 .indetail .name p{
-  /* background-color: skyblue; */
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
   font-size: 30px;
-  /* border-bottom-width: 2px;
-  border-bottom-color: black; */
+}
+.indetail .name i{
+  font-size: 30px;
+  color:red;
+}
+.indetail .name i:hover{
+  cursor: pointer;
+  font-size: 40px;
 }
 
 .images {
@@ -106,9 +115,15 @@
   color: #03254c;
 }
 .create-comment textarea{
-  
   width:100%;
 }
+
+.send-comment{
+  border: 1px solid black;
+  border-radius: 2px;
+  width:50px;
+}
+
 textarea{
   border-radius: 3px;
   padding: 1%;

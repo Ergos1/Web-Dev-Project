@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 })
 export class AlertService {
 
-  alert:BehaviorSubject<Alert>  = new BehaviorSubject<Alert>({'message':''});
+  alert:BehaviorSubject<Alert> = new BehaviorSubject<Alert>({'message':'', 'type':'default'});
 
   constructor() { }
 

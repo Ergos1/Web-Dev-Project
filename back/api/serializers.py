@@ -28,6 +28,7 @@ class ImageSerializerForProduct(serializers.ModelSerializer):
 
 class CommentSerializerForProduct(serializers.ModelSerializer):
     date = serializers.DateTimeField(read_only=True, format='%H:%M, %d.%m.%Y')
+
     class Meta:
         model = Comment
         fields = ('id', 'username', 'date', 'text', 'likes')
@@ -37,6 +38,8 @@ class ProductSerializer(serializers.ModelSerializer):
     category_id = serializers.IntegerField()
     image_urls = ImageSerializerForProduct(read_only=True, many=True, source='image_set')
     comments = CommentSerializerForProduct(read_only=True, many=True, source='comment_set')
+    likes = serializers.IntegerField(default=0, read_only=True)
+    views = serializers.IntegerField(default=0, read_only=True)
 
     class Meta:
         model = Product
@@ -79,6 +82,7 @@ class CommentSerializer(serializers.ModelSerializer):
     product_id = serializers.IntegerField()
     date = serializers.DateTimeField(read_only=True, format='%H:%M, %d.%m.%Y')
     likes = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Comment
         fields = ('id', 'username', 'date', 'text', 'likes', 'product_id')

@@ -2,5 +2,6 @@ export interface MenuItem {
     name:string,
     link:string,
     active:boolean,
-    icon:string
+    icon:string,
+    need_permission:boolean;
 }

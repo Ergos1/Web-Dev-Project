@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthinterceptorService } from './services/authinterceptor.service';
 import { SearchProducntPipe } from './searching/searchProduct.pipe';
+import { StaffToolsComponent } from './components/staff-tools/staff-tools.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SearchProducntPipe } from './searching/searchProduct.pipe';
     SidebarComponent,
     CartComponent,
     CategoryComponent,
-    SearchProducntPipe
+    SearchProducntPipe,
+    StaffToolsComponent
   ],
   imports: [
     BrowserModule,

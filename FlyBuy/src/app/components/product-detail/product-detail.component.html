@@ -1,11 +1,12 @@
 <div class = "main" *ngIf = "product">
   <div class = "head">
     <div class = "left-side">
-      <img [src]="product.image_urls[0].url" alt="">
+      <img *ngIf="product.image_urls.length" [src]="product.image_urls[0].url" alt="">
     </div>
     <div class = "indetail">
       <div class = "name">
         <p id = "product_name">{{product.name}}</p>
+        <i class = "material-icons" *ngIf = "user_is_staff" (click) = "deleteProduct()">delete_forever</i>
       </div>
       <div class = "description">
         <p id = "desc">
@@ -15,7 +16,7 @@
 
       <div class = "images">
         <div *ngFor = "let image of product.image_urls" class="immg">
-          <button class = "btn" (click)="changeImage(image.url)"><img [src]="image.url" alt="{{product.name}}" class="photo"></button>
+          <button class = "btn" (click)="changeImage(image.url)"><img [src]="image.url"  class="photo"></button>
         </div>
       </div>
 
@@ -61,13 +62,13 @@
           <textarea #text placeholder="Type comment..."></textarea>
         </div>
       </div>
-      <button (click)="addComment(text.value)" >Send</button>
+      <button class = "send-comment" (click)="addComment(text.value)" >Send</button>
     </form>
   </div>
 
 
 
-  <div class = "comments">
+  <div class = "comments" *ngIf="product.comments.length">
     <div *ngFor="let comment_ of product.comments.reverse()" class = "comment">
       <div class="comments-box">
           <div class="comments-owner">

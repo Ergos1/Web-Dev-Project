@@ -1,6 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Product} from '../../interfaces/product';
-// import {serialize} from "v8";
 @Pipe({
   name: 'ProductFilter'
 })

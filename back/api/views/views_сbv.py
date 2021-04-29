@@ -4,9 +4,12 @@ from rest_framework.permissions import IsAuthenticated
 
 from api.models import News, Image, Category, Comment
 from api.serializers import NewsSerializer, ImageSerializer, CategorySerializer, CommentSerializer
+from api.permissions import CategoryPermissions, ImagePermissions
 
 
 class CategoryDetail(APIView):
+    permission_classes = [CategoryPermissions]
+
     def get_object(self, category_id):
         try:
             return Category.objects.get(id=category_id)
@@ -17,6 +20,11 @@ class CategoryDetail(APIView):
         category = self.get_object(category_id)
         serializer = CategorySerializer(category)
         return Response(serializer.data)
+
+    def delete(self, request, category_id=None):
+        category = self.get_object(category_id)
+        category.delete()
+        return Response({'Message': 'Deleted'})
 
 
 class NewsList(APIView):
@@ -35,6 +43,8 @@ class NewsList(APIView):
 
 
 class ImageList(APIView):
+    permission_classes = [ImagePermissions]
+
     def get(self, request):
         images = Image.objects.all()
         serializer = ImageSerializer(images, many=True)

@@ -1,0 +1,204 @@
+<div class = "main" *ngIf = "categories != undefined && products != undefined">
+    <!--Category, Products-->
+    <div class="card" style="width: 18rem;">
+        <img (click)="openWindow(categoryAdd, 'md', 'category')"  class="card-img-top" src="../../../assets/images/category-add.jpg" alt="Card image cap">
+        <hr>
+        <h5 class="card-title">Add category</h5>
+    </div>
+    <div class="card" style="width: 18rem;">
+      <img (click)="openWindow(categoryDelete, 'md', 'category')" class="card-img-top" src="../../../assets/images/category-delete.jpg" alt="Card image cap">
+      <hr>
+      <h5 class="card-title">Delete category</h5>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <img (click)="openWindow(productAdd, 'sm', 'category')" class="card-img-top" src="../../../assets/images/product-add.jpg" alt="Card image cap">
+        <hr>
+        <h5 class="card-title">Add product</h5>
+    </div>
+    <div class="card" style="width: 18rem;">
+      <img (click)="openWindow(productDelete, 'sm', 'product')" class="card-img-top" src="../../../assets/images/product-delete.jpg" alt="Card image cap">
+      <hr>
+      <h5 class="card-title">Delete product</h5>
+    </div>
+    <div class="card" style="width: 18rem;">
+      <img (click)="openWindow(imageAdd, 'sm', 'product')" class="card-img-top" src="../../../assets/images/image-add.jpg" alt="Card image cap">
+      <hr>
+      <h5 class="card-title">Add image</h5>
+    </div>
+
+  <!--Category-add window-->
+  <ng-template #categoryAdd let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" >Add category</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class = "form-group">
+            <label>Name</label>
+            <div class = "input-group">
+              <input type="text" [(ngModel)] = "name" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+          <div class = "form-group">
+            <label>Image url</label>
+            <div class = "input-group">
+              <input type="url" [(ngModel)] = "image_url" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+        </form>
+        <div class = "view-example">
+          <h2>View example:</h2>
+          <div class="card" style="width: 14rem;">
+              <h5 class="card-title">{{name}}</h5>
+              <img class="card-img-top" [src]="image_url" alt="Image">
+              <div class="card-body">
+                  <a class="btn btn-dark">Shop now</a>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addCategory()">Add</button>
+      </div>
+  </ng-template>
+
+  <!--Category-delete window-->
+  <ng-template #categoryDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" >Delete category</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class = "select" >
+        <select [(ngModel)]="selected_id" (ngModelChange) = "changeSelected($event)" [ngModelOptions]="{standalone: true}" >
+          <option *ngFor = "let option of options; let i = index" value="{{option.id}}">{{option.name}}</option>
+        </select>
+      </div>
+      <div class = "view-example">
+        <h2>View example:</h2>
+        <div class="card" style="width: 14rem;">
+            <h5 class="card-title">{{category.name}}</h5>
+            <img class="card-img-top" [src]="category.image_url" alt="Image">
+            <div class="card-body">
+                <a class="btn btn-dark">Shop now</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-red" (click)="deleteCategory()">Delete</button>
+    </div>
+  </ng-template>
+
+  <!--Product-add window-->
+  <ng-template #productAdd let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" >Add product</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class = "form-group">
+          <label>Name</label>
+          <div class = "input-group">
+            <input type="text" [(ngModel)] = "name" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Price</label>
+          <div class = "input-group">
+            <input type="number" [(ngModel)] = "price" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Description</label>
+          <div class = "input-group">
+            <textarea [(ngModel)]='description' [ngModelOptions]="{standalone: true}" cols="30" rows="10"></textarea>
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Rating</label>
+          <div class = "input-group">
+            <input type="number" [(ngModel)] = "rating" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Category</label>
+          <div class = "input-group">
+            <div class = "select">
+              <select [(ngModel)]="selected_id" (ngModelChange) = "changeSelected($event)" [ngModelOptions]="{standalone: true}"  >
+                <option *ngFor = "let option of options; let i = index" value="{{option.id}}">{{option.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="addProduct()">Add</button>
+    </div>
+  </ng-template>
+
+  <!--Product-delete window-->
+  <ng-template #productDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" >Delete product</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class = "select" >
+        <select [(ngModel)]="selected_id" (ngModelChange) = "changeSelected($event)" [ngModelOptions]="{standalone: true}" >
+          <option *ngFor = "let option of options; let i = index" value="{{option.id}}">{{option.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-red" (click)="deleteProduct()">Delete</button>
+    </div>
+  </ng-template>
+
+  <!--Image-add window-->
+  <ng-template #imageAdd let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" >Add image</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class = "form-group">
+          <label>Product</label>
+          <div class = "input-group">
+            <div class = "select">
+              <select [(ngModel)]="selected_id" (ngModelChange) = "changeSelected($event)" [ngModelOptions]="{standalone: true}" >
+                <option *ngFor = "let option of options; let i = index" value="{{option.id}}">{{option.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class = "form-group">
+          <label>Image url</label>
+          <div class = "input-group">
+            <input type="text" [(ngModel)] = "image_url" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="addImage()">Add</button>
+    </div>
+  </ng-template>
+</div>
+<div *ngIf = "categories == undefined || products == undefined">
+  Loading...
+</div>

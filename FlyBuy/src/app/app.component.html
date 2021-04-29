@@ -1,13 +1,10 @@
 <app-sidebar></app-sidebar>
 <div class = "main" [ngClass] = "isOpen ? '' : 'sidebar--close' ">
-
-
-  <ng-template #modalAlert let-c="close" let-d="dismiss">
-    <div class="modal-body">
-    </div>
-  </ng-template>
-
-
+  <div class = "alerts">
+    <p *ngFor="let alert of alerts">
+      <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+    </p>
+</div>
 
   <app-header></app-header>
   <router-outlet></router-outlet>

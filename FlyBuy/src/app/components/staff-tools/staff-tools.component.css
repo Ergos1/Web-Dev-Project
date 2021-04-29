@@ -1,0 +1,43 @@
+.main{
+    display: flex;
+    justify-content: space-around;
+      flex-wrap: wrap;
+
+    padding: 50px;
+}
+
+.card-img-top:hover{
+    cursor: pointer;
+}
+.modal-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-title{
+    text-transform: capitalize;
+    text-align: center;
+  }
+  
+.card{
+    margin-bottom: 3%;
+    padding: 2%;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.card-img-top{
+    height:75%;
+}
+
+.btn{
+    width:100%;
+}
+
+.btn-red{
+    background-color:red;
+    color:white;
+}
+
+select{
+    width: 100%;
+}

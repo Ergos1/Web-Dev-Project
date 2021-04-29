@@ -84,6 +84,7 @@ export class HeaderComponent implements OnInit {
 
   getLogin():void{
     this.isOpen = this.sidebarService.getIsOpen();
+    
     if(localStorage.getItem('token')){
       this.token = JSON.parse(localStorage.getItem('token')||'');
       if(localStorage.getItem('user')){
@@ -102,7 +103,7 @@ export class HeaderComponent implements OnInit {
       this.getUser();
     },
     (error) =>{
-      let alert:Alert = {'message':'Login or password is incorrect'}
+      let alert:Alert = {'message':'Login or password or both are incorrect', 'type':'danger'}
       this.alertService.showAlert(alert);
     })
     
@@ -111,7 +112,7 @@ export class HeaderComponent implements OnInit {
 
   logout():void{
     this.userService.setIsLogin(false);
-    location.reload();
+    this.router.navigate(['home']);
   }
   
 
@@ -170,14 +171,17 @@ export class HeaderComponent implements OnInit {
     let user:User = {'username': this.username, 'password': this.password, "email": this.email,
      "first_name": this.first_name, "last_name": this.last_name, 'is_staff': false};
     
-     this.userService.addUser(user).subscribe((data)=>{
-      alert('User were created!!!')
-      this.modalService.dismissAll('done');
-    }, (error)=>{
-      console.log(error);
-      alert('Not good something');
-    }
-    )
+     this.userService.addUser(user).subscribe(
+      (data)=>{
+        let alert:Alert = {message: 'User was created', type:'success'};
+        this.alertService.showAlert(alert);
+        this.modalService.dismissAll('done');
+      }, 
+      (error)=>{
+        let alert:Alert = {message: 'Something is wrong', type:'danger'};
+        this.alertService.showAlert(alert);
+      }
+    );
   }
 
 

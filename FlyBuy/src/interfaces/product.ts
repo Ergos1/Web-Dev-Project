@@ -1,6 +1,5 @@
 import { Comment } from '../interfaces/comment';
 import { Image } from '../interfaces/image';
-import { Category } from "./category";
 export interface Product {
     id: number;
     name: string;
