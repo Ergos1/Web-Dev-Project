@@ -9,6 +9,7 @@ import { Product } from 'src/interfaces/product';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { Alert } from 'src/interfaces/alert';
+import { CartService } from 'src/app/services/cart.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -37,7 +38,7 @@ export class HeaderComponent implements OnInit {
   constructor(private sidebarService:SidebarService, config: NgbModalConfig,
      private modalService: NgbModal, private userService:UserService,
      private productService: ProductService, private router:Router,
-     private alertService: AlertService) {
+     private alertService: AlertService, private cartService: CartService) {
     config.backdrop = 'static';
     config.keyboard = false;
     config.animation = true;
@@ -112,6 +113,7 @@ export class HeaderComponent implements OnInit {
 
   logout():void{
     this.userService.setIsLogin(false);
+    this.cartService.removeAllProducts();
     this.router.navigate(['home']);
   }
   
@@ -170,18 +172,18 @@ export class HeaderComponent implements OnInit {
 
     let user:User = {'username': this.username, 'password': this.password, "email": this.email,
      "first_name": this.first_name, "last_name": this.last_name, 'is_staff': false};
-    
-     this.userService.addUser(user).subscribe(
-      (data)=>{
-        let alert:Alert = {message: 'User was created', type:'success'};
-        this.alertService.showAlert(alert);
-        this.modalService.dismissAll('done');
-      }, 
-      (error)=>{
-        let alert:Alert = {message: 'Something is wrong', type:'danger'};
-        this.alertService.showAlert(alert);
-      }
-    );
+
+    let alert:Alert;
+    this.userService.addUser(user).subscribe(
+    (data)=>{
+      alert = {message: 'User was created', type:'success'};
+      this.modalService.dismissAll('done');
+    }, 
+    (error)=>{
+      alert = {message: 'Something is wrong', type:'danger'};
+    }).add(()=>{
+      this.alertService.showAlert(alert);
+    });
   }
 
 
@@ -196,10 +198,4 @@ export class HeaderComponent implements OnInit {
     });
   }
   
-
-
-  
-
-
-
 }

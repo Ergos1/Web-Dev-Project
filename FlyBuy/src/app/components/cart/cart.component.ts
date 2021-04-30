@@ -3,6 +3,8 @@ import { CartService } from 'src/app/services/cart.service';
 import { Cart } from 'src/interfaces/cart';
 import { Product } from 'src/interfaces/product';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Alert } from 'src/interfaces/alert';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +16,7 @@ export class CartComponent implements OnInit {
   cart!:Cart;
 
   constructor(private cartService:CartService, config: NgbModalConfig,
-    private modalService: NgbModal) {
+    private modalService: NgbModal, private alertService:AlertService) {
       config.backdrop = 'static';
       config.keyboard = false;
       config.animation = true;
@@ -35,10 +37,13 @@ export class CartComponent implements OnInit {
   }
 
   toOrder(country:string, city:string, address:string):void{
-    alert('Order will arrive to ' + country + "; " + city + "; " + address);
+    let alert:Alert = {message:`Order which include : ${this.cartService.getAllProductsSplit('; ')} will be arrived.
+    Country: ${country},
+    City: ${city},
+    Address: ${address}`, type:"success"}
     this.modalService.dismissAll();
     this.cartService.removeAllProducts();
-    location.reload();
+    this.alertService.showAlert(alert);
   }
 
   openWindow(content:object){

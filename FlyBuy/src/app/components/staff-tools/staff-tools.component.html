@@ -1,5 +1,5 @@
 <div class = "main" *ngIf = "categories != undefined && products != undefined">
-    <!--Category, Products-->
+    <!--Category, Products, Images-->
     <div class="card" style="width: 18rem;">
         <img (click)="openWindow(categoryAdd, 'md', 'category')"  class="card-img-top" src="../../../assets/images/category-add.jpg" alt="Card image cap">
         <hr>
@@ -21,7 +21,7 @@
       <h5 class="card-title">Delete product</h5>
     </div>
     <div class="card" style="width: 18rem;">
-      <img (click)="openWindow(imageAdd, 'sm', 'product')" class="card-img-top" src="../../../assets/images/image-add.jpg" alt="Card image cap">
+      <img (click)="openWindow(imageAdd, 'md', 'product')" class="card-img-top" src="../../../assets/images/image-add.jpg" alt="Card image cap">
       <hr>
       <h5 class="card-title">Add image</h5>
     </div>
@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="addCategory()">Add</button>
+        <button type="button" class="btn btn-primary" (click)="addCategory(); c('Added')">Add</button>
       </div>
   </ng-template>
 
@@ -76,7 +76,7 @@
     <div class="modal-body">
       <div class = "select" >
         <select [(ngModel)]="selected_id" (ngModelChange) = "changeSelected($event)" [ngModelOptions]="{standalone: true}" >
-          <option *ngFor = "let option of options; let i = index" value="{{option.id}}">{{option.name}}</option>
+          <option *ngFor = "let option of options.concat(categories); let i = index" value="{{option.id}}">{{option.name}}</option>
         </select>
       </div>
       <div class = "view-example">
@@ -91,7 +91,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-red" (click)="deleteCategory()">Delete</button>
+      <button type="button" class="btn btn-red" (click)="deleteCategory(); c('deleted')">Delete</button>
     </div>
   </ng-template>
 
@@ -134,7 +134,7 @@
           <div class = "input-group">
             <div class = "select">
               <select [(ngModel)]="selected_id" (ngModelChange) = "changeSelected($event)" [ngModelOptions]="{standalone: true}"  >
-                <option *ngFor = "let option of options; let i = index" value="{{option.id}}">{{option.name}}</option>
+                <option *ngFor = "let option of options.concat(categories); let i = index" value="{{option.id}}">{{option.name}}</option>
               </select>
             </div>
           </div>
@@ -142,7 +142,7 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="addProduct()">Add</button>
+      <button type="button" class="btn btn-primary" (click)="addProduct(); c('Added')">Add</button>
     </div>
   </ng-template>
 
@@ -157,12 +157,12 @@
     <div class="modal-body">
       <div class = "select" >
         <select [(ngModel)]="selected_id" (ngModelChange) = "changeSelected($event)" [ngModelOptions]="{standalone: true}" >
-          <option *ngFor = "let option of options; let i = index" value="{{option.id}}">{{option.name}}</option>
+          <option *ngFor = "let option of options.concat(products); let i = index" value="{{option.id}}">{{option.name}}</option>
         </select>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-red" (click)="deleteProduct()">Delete</button>
+      <button type="button" class="btn btn-red" (click)="deleteProduct(); c('deleted')">Delete</button>
     </div>
   </ng-template>
 
@@ -181,7 +181,7 @@
           <div class = "input-group">
             <div class = "select">
               <select [(ngModel)]="selected_id" (ngModelChange) = "changeSelected($event)" [ngModelOptions]="{standalone: true}" >
-                <option *ngFor = "let option of options; let i = index" value="{{option.id}}">{{option.name}}</option>
+                <option *ngFor = "let option of options.concat(products); let i = index" value="{{option.id}}">{{option.name}}</option>
               </select>
             </div>
           </div>
@@ -193,9 +193,15 @@
           </div>
         </div>
       </form>
+      <div class = "view-example">
+        <h2>Image:</h2>
+        <div class="card" style="width: 14rem;">
+            <img class="card-img-top" [src]="image_url" alt="Image">
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="addImage()">Add</button>
+      <button type="button" class="btn btn-primary" (click)="addImage(); c('added')">Add</button>
     </div>
   </ng-template>
 </div>

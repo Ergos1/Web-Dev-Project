@@ -32,6 +32,7 @@
 }
 .left-side img{
   width: 100%;
+  max-height: 600px;
   border-radius: 5px;
   box-shadow: 0 0 8px #03254c;
 }

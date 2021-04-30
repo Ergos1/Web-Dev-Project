@@ -19,7 +19,10 @@ import { User } from 'src/interfaces/user';
 })
 export class ProductDetailComponent implements OnInit {
 
+  //Form field
   username!: string;
+
+  //Service field
   isLogin!: boolean;
   product!: Product;
   liked!: boolean;
@@ -55,7 +58,6 @@ export class ProductDetailComponent implements OnInit {
         let user:User = JSON.parse(localStorage.getItem('user')||"{'username':'', 'is_staff':'false', 'password':'string','first_name':'', 'last_name':'', 'email':''}");
         this.user_is_staff = user.is_staff;
         this.username = user.username;
-        console.log(user);
       }
     })
   }
@@ -75,8 +77,12 @@ export class ProductDetailComponent implements OnInit {
 
 
   updateProduct():void{
-    this.productService.updateProduct(this.product).subscribe((data)=>{
-      console.log('Product updated');
+    this.productService.updateProduct(this.product).subscribe(
+    (data)=>{
+      console.log(data);
+    },
+    (error)=>{
+      console.log(error);
     });
   }
 
@@ -116,7 +122,7 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
     this.cartService.addProduct(this.product);
-    let alert:Alert = {message:`${this.product.name} is added to cart`, type: 'succsess'};
+    let alert:Alert = {message:`${this.product.name} is added to cart`, type: 'success'};
     this.alertService.showAlert(alert);
   }
   
@@ -128,7 +134,7 @@ export class ProductDetailComponent implements OnInit {
         this.liked = true;
         this.updateProduct();
 
-        let alert:Alert = {message:`You liked`, type: 'succsess'};
+        let alert:Alert = {message:`You liked`, type: 'success'};
         this.alertService.showAlert(alert);
       }, 
       (error)=>{

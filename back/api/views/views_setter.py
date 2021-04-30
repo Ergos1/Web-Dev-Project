@@ -11,6 +11,7 @@ from api.models import Category, Product
 from api.serializers import CategorySerializer, ProductSerializer, NewsSerializer, ImageSerializer, UserSerializer
 
 import pandas as pd
+import random
 
 
 def set_categories(request):
@@ -38,12 +39,14 @@ def delete_categories(request):
 
 
 def set_products(request):
-    dates = pd.read_csv('D:\Programming\PpP\web\cat.csv')
+    # dates = pd.read_csv('D:\Programming\PpP\web\cat.csv')
+    dates = pd.read_csv(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgzUi6BNlGD2U6RmJcvT2kiszysNj9WISt746Jo67wtwD2DVJb-Iuwrkj6hL6bgDU1KotRaOS_IJL3/pub?gid=1763850928&single=true&output=csv')
 
     name = dates['name'].values
     price = dates['price'].values
     description = dates['description'].values
-    rating = dates['rating'].values
+    rating = [random.randint(1, 10) for i in range(len(name))]
     likes = dates['likes'].values
     views = dates['views'].values
     category_id = dates['category_id'].values
@@ -58,7 +61,7 @@ def set_products(request):
         else:
             print('Bad')
             return JsonResponse(serializer.errors)
-    return JsonResponse({'Message': 'All good'})
+    return JsonResponse({'Message': 'Good'})
 
 
 def set_news(request):
@@ -85,7 +88,7 @@ def set_news(request):
 
 
 def set_images(request):
-    dates = pd.read_csv('D:\Programming\PpP\web\cat.csv')
+    dates = pd.read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSgzUi6BNlGD2U6RmJcvT2kiszysNj9WISt746Jo67wtwD2DVJb-Iuwrkj6hL6bgDU1KotRaOS_IJL3/pub?gid=1053381469&single=true&output=csv')
 
     first = dates['first']
     second = dates['second']
@@ -93,7 +96,7 @@ def set_images(request):
 
     urls = [first, second, third]
 
-    id = 1
+    id = 46
 
     for i in range(len(first)):
         id += 1

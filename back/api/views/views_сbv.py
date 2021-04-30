@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework import status
 
 from api.models import News, Image, Category, Comment
 from api.serializers import NewsSerializer, ImageSerializer, CategorySerializer, CommentSerializer
@@ -19,27 +20,27 @@ class CategoryDetail(APIView):
     def get(self, request, category_id=None):
         category = self.get_object(category_id)
         serializer = CategorySerializer(category)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, category_id=None):
         category = self.get_object(category_id)
         category.delete()
-        return Response({'Message': 'Deleted'})
+        return Response({'Message': 'Deleted'}, status=status.HTTP_200_OK)
 
 
 class NewsList(APIView):
     def get(self, request):
         news = News.objects.all()
         serializer = NewsSerializer(news, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = NewsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ImageList(APIView):
@@ -48,19 +49,19 @@ class ImageList(APIView):
     def get(self, request):
         images = Image.objects.all()
         serializer = ImageSerializer(images, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = ImageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CommentList(APIView):
-    permission_classes = [IsAuthenticated];
+    permission_classes = [IsAuthenticatedOrReadOnly];
 
     def get(self, request):
         comments = Comment.objects.all()
@@ -71,6 +72,6 @@ class CommentList(APIView):
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

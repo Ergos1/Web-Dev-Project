@@ -45,4 +45,13 @@ export class CartService implements OnInit{
   }
 
 
+  getAllProductsSplit(seperator:string = ' '):string{
+    let result = "";
+    this.cart.products.map(product=>{
+      result+=product.name+seperator;
+    });
+    return result;
+  }
+
+
 }

@@ -17,10 +17,10 @@ def user_by_username(request):
             username = data['username']
             user = User.objects.get(username=username)
         except Exception as e:
-            return Response({'Message': str(e)})
+            return Response({'Message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = UserSerializer(user)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

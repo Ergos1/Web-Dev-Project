@@ -5,6 +5,8 @@ import { SidebarService } from "../../services/sidebar.service";
 import { menuItems } from '../../../mock-data/menu-items';
 import { Location } from '@angular/common';
 import { User } from 'src/interfaces/user';
+import { Alert } from 'src/interfaces/alert';
+import { AlertService } from 'src/app/services/alert.service';
 
 
 @Component({
@@ -18,7 +20,8 @@ export class SidebarComponent implements OnInit {
   log!:string;
 
   constructor(private sidebarService:SidebarService, private router:Router, 
-    private activatedRoute: ActivatedRoute, private location:Location) { }
+    private activatedRoute: ActivatedRoute, private location:Location,
+    private alertService:AlertService) { }
 
   ngOnInit(): void {
     this.menuItems = menuItems;
@@ -73,7 +76,8 @@ export class SidebarComponent implements OnInit {
   goToPage(item: MenuItem): void{
     if(item.need_permission){
       if(!this.checkToPermission()){
-        alert('You have not permission');
+        let alert:Alert = {message:'You have not permission', type:'danger'};
+        this.alertService.showAlert(alert);
         return;
       }
     }
@@ -81,9 +85,6 @@ export class SidebarComponent implements OnInit {
   }
 
   checkToPermission():boolean{
-    if(localStorage.getItem('user')){
-      return JSON.parse(localStorage.getItem('user') || '{"is_staff":false}').is_staff == true;
-    }
-    return false;
+    return JSON.parse(localStorage.getItem('user') || '{"is_staff":false}').is_staff;
   }
 }

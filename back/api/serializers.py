@@ -38,8 +38,8 @@ class ProductSerializer(serializers.ModelSerializer):
     category_id = serializers.IntegerField()
     image_urls = ImageSerializerForProduct(read_only=True, many=True, source='image_set')
     comments = CommentSerializerForProduct(read_only=True, many=True, source='comment_set')
-    likes = serializers.IntegerField(default=0, read_only=True)
-    views = serializers.IntegerField(default=0, read_only=True)
+    likes = serializers.IntegerField(default=0)
+    views = serializers.IntegerField(default=0)
 
     class Meta:
         model = Product

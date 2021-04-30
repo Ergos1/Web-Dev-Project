@@ -83,8 +83,7 @@ header{
 }
 
 .answer {
-    top: 7%;
-    left: 40%;
+    top: 40px;
     background-color: #03254c;
     z-index: 100;
     color: white;
@@ -93,12 +92,11 @@ header{
 }
 .answer--open{
     width: 23%;
-    left: 51%;
+    left: 420px;
 
 }
 .answer--close{
     width: 28%;
-    left: 38%;
-
+    left: 500px;
 }
 
