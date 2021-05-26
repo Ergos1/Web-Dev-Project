@@ -1,6 +1,6 @@
 # Web-Dev-Project
-**Project name**: FlyBuy
-**Project description**: Simple online store similar to Amazon
+## **Project name**: FlyBuy
+## **Project description**: Simple online store similar to Amazon
 **Team members**:
 |Name| Github | Role |
 |----------------|:---------:|----------------:|
