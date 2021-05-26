@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Product } from 'src/interfaces/product';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -10,7 +10,8 @@ export class ProductService {
 
   readonly url: string = 'http://127.0.0.1:8000/api/products/'; // backend url
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   handleError(error: HttpErrorResponse):any{
     return throwError(error);
@@ -22,7 +23,8 @@ export class ProductService {
   }
 
   getProductsByCategoryId(categoryId: number): Observable<Product[]>{
-    return this.http.get<Product[]>(`http://127.0.0.1:8000/api/categories/${categoryId}/products/`)
+    let params = new HttpParams().set('category_id', categoryId.toString());
+    return this.http.get<Product[]>(this.url, {params:params});
   }
 
   getProductById(id: number): Observable<Product>{ // READ

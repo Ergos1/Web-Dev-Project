@@ -30,9 +30,7 @@ export class UserService {
 
 
   getUser(username: string): Observable<User>{
-    return this.http.post<User>(this.base_url + 'user/', {
-      username
-    })
+    return this.http.get<User>(this.base_url + 'user/' + username + '/');
   }
 
 

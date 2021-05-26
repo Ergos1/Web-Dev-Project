@@ -2,22 +2,22 @@ import json
 
 from django.contrib.auth.models import User
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-
-from api.serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
+from api.serializers import UserSerializer
 
-@api_view(['POST'])
-def user_by_username(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_by_username(request, username):
+    if request.method == 'GET':
         try:
-            username = data['username']
             user = User.objects.get(username=username)
         except Exception as e:
-            return Response({'Message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Message': str(e)}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)

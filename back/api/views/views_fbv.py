@@ -30,7 +30,14 @@ def category_list(request):
 @permission_classes([ProductPermissions])
 def product_list(request):
     if request.method == 'GET':
-        products = Product.objects.all()
+        category_id = request.GET.get('category_id', 0)#query_params
+        if category_id != 0:
+            try:
+                products = Category.objects.get(id=category_id).product_set.all()
+            except Exception as e:
+                return Response({"Message": str(e)}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -70,7 +77,6 @@ def product_detail(request, product_id):
 
     if request.method == 'PUT':
         serializer = ProductSerializer(instance=product, data=request.data)
-        print(request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

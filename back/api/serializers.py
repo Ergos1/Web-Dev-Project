@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class CategorySerializer(serializers.Serializer):  # 1/2 with serializer.Serializer
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=300)
-    image_url = serializers.CharField(max_length=10000)
+    image_url = serializers.CharField(max_length=10000, required=False)
 
     def create(self, validated_data):
         category = Category.objects.create(name=validated_data.get('name'),
@@ -14,8 +14,8 @@ class CategorySerializer(serializers.Serializer):  # 1/2 with serializer.Seriali
         return category
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name')
-        instance.image_url = validated_data.get('image_url')
+        instance.name = validated_data.get('name', instance.name)
+        instance.image_url = validated_data.get('image_url', instance.image_url)
         instance.save()
         return instance
 
@@ -62,10 +62,10 @@ class NewsSerializer(serializers.Serializer):
         return news
 
     def update(self, instance, validated_data):
-        instance.title = validated_data.get('title')
-        instance.description = validated_data.get('description')
-        instance.image_url = validated_data.get('image_url')
-        instance.link = validated_data.get('link')
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.image_url = validated_data.get('image_url', instance.image_url)
+        instance.link = validated_data.get('link', instance.link)
         instance.save()
         return instance
 

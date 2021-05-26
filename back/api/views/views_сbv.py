@@ -22,6 +22,14 @@ class CategoryDetail(APIView):
         serializer = CategorySerializer(category)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def put(self, request, category_id=None):
+        category = self.get_object(category_id)
+        serializer = CategorySerializer(instance=category, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def delete(self, request, category_id=None):
         category = self.get_object(category_id)
         category.delete()

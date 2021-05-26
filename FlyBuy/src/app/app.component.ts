@@ -30,9 +30,16 @@ export class AppComponent implements OnInit{
     this.alerts = [];
     this.alertService.getAlert().subscribe((data)=>{
       if(data.type!='default'){
-        this.alerts.push(data);
+        this.addAlert(data);
       }
     })
+  }
+
+  addAlert(alert:Alert):void{
+    if(this.alerts.length >= 3){
+      this.alerts.pop();
+    }
+    this.alerts.unshift(alert);
   }
 
   close(alert: Alert) {

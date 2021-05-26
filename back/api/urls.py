@@ -15,7 +15,7 @@ urlpatterns = [
     path('images/', ImageList.as_view()),
     path('comments/', CommentList.as_view()),
 
-    path('user/', user_by_username),
+    path('user/<str:username>/', user_by_username),
     path('sign-up/', sign_up_user),
 
     # path('dosmth/', set_categories),

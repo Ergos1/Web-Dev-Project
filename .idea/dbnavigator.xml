@@ -26,7 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="c0bf3835-a584-472f-813f-247875a37545">
-        <schema name="main" object-types="table, column, constraint, dataset trigger, view, index" />
+        <schema name="main" object-types="table, column, dataset trigger, constraint, view, index" />
       </connection>
     </loaded-nodes>
   </component>
@@ -36,12 +36,15 @@
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="c0bf3835-a584-472f-813f-247875a37545" object-ref="schemas/main/tables/auth_user" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="c0bf3835-a584-472f-813f-247875a37545" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.auth_user" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.api_product" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.api_news" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="c0bf3835-a584-472f-813f-247875a37545" dataset="main.api_comment" active-filter-id="EMPTY_FILTER" />
